@@ -1,0 +1,29 @@
+datasource db {
+  url      = env("MYSQL_DATABASE_URL")
+  provider = "mysql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           Int      @id
+  googleId     String   @unique
+  email        String?
+  picture      String?
+  name         String?
+  familyid     Int?
+  isOnboarding Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  family       Family?  @relation(fields: [familyid], references: [id])
+}
+
+model Family {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     User[]
+}

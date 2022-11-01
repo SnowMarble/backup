@@ -1,0 +1,27 @@
+{
+  "name": "user",
+  "packageManager": "yarn@3.2.4",
+  "scripts": {
+    "db:push": "prisma db push && prisma generate",
+    "deploy": "./script/deploy.sh"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.5.0",
+    "joi": "^17.6.4",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-bearer-token": "^2.4.0",
+    "google-auth-library": "^8.6.0",
+    "helmet": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "prisma": "^4.5.0",
+    "tsconfig-paths": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.11.8"
+  }
+}
