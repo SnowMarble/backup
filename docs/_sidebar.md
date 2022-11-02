@@ -1,0 +1,3 @@
+- [Home](/)
+- [Auth](auth.md)
+- [Onboarding](onboarding.md)
