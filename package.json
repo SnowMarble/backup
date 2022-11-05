@@ -7,8 +7,9 @@
   ],
   "scripts": {
     "nodemon": "nodemon -r tsconfig-paths/register",
-    "server-user": "cross-env PORT=3001 TS_NODE_BASEURL=src/services/user/src yarn nodemon src/services/user/src/server.ts",
-    "dev": "concurrently \"npm:server-*\""
+    "server:user": "cross-env PORT=3001 TS_NODE_BASEURL=src/services/user/src yarn nodemon src/services/user/src/server.ts",
+    "server:upload": "cross-env PORT=3002 TS_NODE_BASEURL=src/services/upload/src yarn nodemon src/services/upload/src/server.ts",
+    "dev": "concurrently \"npm:server:*\""
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

@@ -1,0 +1,10 @@
+{
+  "clusterName": "rabbitmq",
+  "serverInstanceProductCode": "SVR.VRMQ.MQND.STAND.C004.M016.NET.SSD.B050.G002",
+  "serverSubnetNo": 10682,
+  "loadBalancerSubnetNo": 10683,
+  "ipTypeCode": "Private",
+  "rabbitmqVersion": "3.8.23",
+  "rmqDefaultUser": "rmquser",
+  "rmqDefaultPass": "rmquserpass1234*"
+}

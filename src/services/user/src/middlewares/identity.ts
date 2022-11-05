@@ -1,9 +1,9 @@
-import { verify, prisma, HttpError } from "lib"
+import { verify, amqp, prisma, HttpError } from "lib"
 
 import type { Request, Response, NextFunction } from "express"
 
-export default async (req: Request, res: Response, next: NextFunction) => {
-  const { id } = verify(req.token, false)
+export const checkIdentity = async (token: string) => {
+  const { id } = verify(token, false)
 
   const user = await prisma.user.findUnique({
     where: { id: +id },
@@ -13,7 +13,11 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     throw new HttpError(401, "invalid token", "ERR_INVALID_TOKEN")
   }
 
-  req.user = user
+  return user
+}
+
+export default async (req: Request, res: Response, next: NextFunction) => {
+  req.user = await checkIdentity(req.token as string)
 
   return next()
 }

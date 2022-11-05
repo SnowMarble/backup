@@ -1,18 +1,20 @@
-import cors from 'cors'
-import helmet from 'helmet'
-import express from 'express'
-import config from 'lib/config'
-import { readdirSync } from 'fs'
-import { join } from 'path/posix'
-import bearerToken from 'express-bearer-token'
+import cors from "cors"
+import helmet from "helmet"
+import express from "express"
+import amqplib from "amqplib"
+import { HttpError } from "lib"
+import config from "lib/config"
+import { readdirSync } from "fs"
+import { join } from "path/posix"
+import bearerToken from "express-bearer-token"
 
-import identity from './middlewares/identity'
-import errorHandler from './middlewares/error'
-import validator from './middlewares/validator'
+import errorHandler from "./middlewares/error"
+import validator from "./middlewares/validator"
+import identity, { checkIdentity } from "./middlewares/identity"
 
-import type { Application } from 'express'
-import type { Routers } from './interface/app'
-import type { Request, Response, NextFunction } from 'express'
+import type { Application } from "express"
+import type { Routers } from "./interface/app"
+import type { Request, Response, NextFunction } from "express"
 
 export default class {
   public app: Application
@@ -20,6 +22,7 @@ export default class {
   constructor() {
     this.app = express()
     this.initializeMiddlewares()
+    this.initializeRabbitMQ()
     this.initializeRouters()
     this.initializeErrorHandler()
   }
@@ -41,8 +44,8 @@ export default class {
     this.app.use(helmet())
     this.app.use(
       bearerToken({
-        reqKey: 'token',
-        headerKey: 'Bearer',
+        reqKey: "token",
+        headerKey: "Bearer",
       })
     )
     this.app.use(express.json())
@@ -50,8 +53,8 @@ export default class {
   }
 
   private initializeRouters(): void {
-    const routerPath = join(__dirname, 'routers')
-    const servicePath = (name: string) => join(routerPath, name, 'index')
+    const routerPath = join(__dirname, "routers")
+    const servicePath = (name: string) => join(routerPath, name, "index")
 
     const roots = readdirSync(routerPath, { withFileTypes: true })
 
@@ -81,6 +84,45 @@ export default class {
 
   private initializeErrorHandler(): void {
     this.app.use(errorHandler)
+  }
+
+  private initializeRabbitMQ(): void {
+    ; (async () => {
+      const queue = "user-identity"
+      const connection = await amqplib.connect(config.rabbitMQURI)
+      const channel = await connection.createChannel()
+
+      await channel.assertQueue(queue)
+
+      channel.consume(queue, async (msg) => {
+        if (msg !== null) {
+          try {
+            const token = msg.content.toString()
+            const identity = await checkIdentity(token)
+
+            channel.sendToQueue(
+              msg.properties.replyTo,
+              Buffer.from(JSON.stringify({ data: identity }))
+            )
+          } catch (error) {
+            if (error instanceof HttpError) {
+              const errorResponse = {
+                code: error.code,
+                status: error.status,
+                message: error.message,
+              }
+
+              channel.sendToQueue(
+                msg.properties.replyTo,
+                Buffer.from(JSON.stringify({ error: errorResponse }))
+              )
+            }
+          } finally {
+            channel.ack(msg)
+          }
+        }
+      })
+    })()
   }
 
   public listen(port = config.port): void {

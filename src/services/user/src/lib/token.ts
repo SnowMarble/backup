@@ -2,7 +2,7 @@ import crypto from "crypto"
 import config from "./config"
 import jwt from "jsonwebtoken"
 import { HttpError } from "lib/error"
-import { Prisma } from "@prisma/client"
+// import { Prisma } from "@prisma/client"
 import {
   TokenExpiredError,
   JsonWebTokenError,
@@ -69,13 +69,13 @@ export const verify = (
       throw new HttpError(401, "token is not valid", "TOKEN_INVALID")
     }
 
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      throw new HttpError(
-        401,
-        "fail to identify user",
-        "TOKEN_FAILED"
-      )
-    }
+    // if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    //   throw new HttpError(
+    //     401,
+    //     "fail to identify user",
+    //     "TOKEN_FAILED"
+    //   )
+    // }
 
     throw error
   }

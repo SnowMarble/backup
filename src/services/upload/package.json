@@ -1,0 +1,20 @@
+{
+  "name": "upload",
+  "packageManager": "yarn@3.2.4",
+  "scripts": {
+    "db:push": "prisma db push --accept-data-loss && prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.5.0",
+    "amqplib": "^0.10.3",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-bearer-token": "^2.4.0",
+    "helmet": "^6.0.0",
+    "joi": "^17.6.4",
+    "prisma": "^4.5.0",
+    "tsconfig-paths": "^4.1.0"
+  }
+}
