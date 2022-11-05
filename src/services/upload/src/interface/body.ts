@@ -11,4 +11,5 @@ export type CreateAlbum = Body<{
   name: string
   eventDate: string
   categoryId: number
+  description: string
 }>

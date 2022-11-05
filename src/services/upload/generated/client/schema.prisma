@@ -1,0 +1,33 @@
+datasource db {
+  url      = env("UPLOAD_DATABASE_URL")
+  provider = "mysql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+model Album {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  evnetDate   DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  lastViewed  DateTime @default(now())
+  familyId    Int
+  CategoryId  Int
+  Category    Category @relation(fields: [CategoryId], references: [id], onDelete: Cascade)
+}
+
+model Category {
+  id       Int    @id @default(autoincrement())
+  name     String
+  familyId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  albums Album[]
+}

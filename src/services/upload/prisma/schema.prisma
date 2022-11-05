@@ -5,7 +5,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/client"
+  output   = "../generated/client"
 }
 
 model Album {
@@ -18,7 +18,7 @@ model Album {
   lastViewed  DateTime @default(now())
   familyId    Int
   CategoryId  Int
-  Category    Category @relation(fields: [CategoryId], references: [id])
+  Category    Category @relation(fields: [CategoryId], references: [id], onDelete: Cascade)
 }
 
 model Category {

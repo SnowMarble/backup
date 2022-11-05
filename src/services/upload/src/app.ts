@@ -5,69 +5,40 @@ import config from "lib/config"
 import { readdirSync } from "fs"
 import { join } from "path/posix"
 import { randomBytes } from "crypto"
-import { amqp, HttpError } from "lib"
+import { RabbitMQ, HttpError } from "lib"
 import bearerToken from "express-bearer-token"
 
-import { createCategoryMQ } from "./routers/category/create"
-
+import { User } from 'interface/user'
 import errorHandler from "./middlewares/error"
 import validator from "./middlewares/validator"
 
 import type { Application } from "express"
-import type { User } from "interface/user"
 import type { Routers } from "./interface/app"
 import type { Request, Response, NextFunction } from "express"
-
-interface Identity {
-  error?: {
-    code: string
-    message: string
-    status: number
-  }
-  data?: User
-}
 
 const identity = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.token) {
     throw new HttpError(401, "invalid token", "ERR_INVALID_TOKEN")
   }
 
-  const queue = "user-identity"
-  const replyQueue = `user-identity-${randomBytes(16).toString("hex")}`
+  const correlationId = randomBytes(16).toString("hex")
 
-  const connect = await amqp()
-  const channel = await connect.createChannel()
-  const replyChannel = await connect.createChannel()
-
-  channel.sendToQueue(queue, Buffer.from(req.token), {
-    replyTo: replyQueue,
+  console.log(" [x] Requesting identity: " + correlationId)
+  RabbitMQ.identityReplyHandlers.set(correlationId, ({ data }: { data: User }) => {
+    req.user = data
+    next()
   })
 
-  await channel.assertQueue(replyQueue)
-  replyChannel.consume(replyQueue, (msg) => {
-    if (msg) {
-      try {
-        const idendity: Identity = JSON.parse(msg.content.toString())
-
-        if (idendity.error) {
-          replyChannel.ack(msg)
-          throw new HttpError(
-            idendity.error.status,
-            idendity.error.message,
-            idendity.error.code
-          )
-        }
-
-        if (idendity.data) {
-          replyChannel.ack(msg)
-          req.user = idendity.data
-        }
-        next()
-      } catch (error) {
-        next(error)
-      }
+  const channel = await RabbitMQ.createChannel()
+  await channel.assertQueue("user-identity")
+  channel.sendToQueue(
+    "user-identity",
+    Buffer.from(req.token),
+    {
+      replyTo: 'user-identity-reply',
+      correlationId,
     }
-  })
+  )
 }
 
 export default class {
@@ -144,7 +115,8 @@ export default class {
 
   private initializeMQ(): void {
     ; (async () => {
-      await createCategoryMQ()
+      await RabbitMQ.userIdentityReply()
+      await RabbitMQ.createDeaultCategories()
     })()
   }
 
