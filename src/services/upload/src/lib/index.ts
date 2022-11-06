@@ -1,5 +1,6 @@
 export * from './amqp'
 export * from './error'
 export * from './prisma'
+export * from './storage'
 export { default as config } from './config'
 export { default as checkRouter } from './checkRouter'

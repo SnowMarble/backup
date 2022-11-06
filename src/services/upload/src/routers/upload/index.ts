@@ -1,15 +1,24 @@
-import { checkRouter } from 'lib'
+import multer from "multer"
+import { checkRouter } from "lib"
+
+import { upload } from "./upload"
+import get from "./get"
 
 export default checkRouter({
-  root: '/',
+  root: "/upload",
   routers: [
     {
-      path: '/',
-      method: 'get',
+      path: "/",
+      method: "post",
       needAuth: true,
-      handler: (req, res) => {
-        res.json(req.user)
-      }
-    }
-  ]
+      middlewares: [multer().single("file")],
+      handler: upload,
+    },
+    {
+      path: "/:key",
+      method: "get",
+      needAuth: true,
+      handler: get,
+    },
+  ],
 })

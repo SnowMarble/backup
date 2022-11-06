@@ -16,6 +16,7 @@ export default checkRouter({
         type: "query",
         body: {
           sort: Joi.string().valid("asc", "desc"),
+          categoryId: Joi.number(),
           sortType: Joi.string()
             .valid("lastViewed", "updatedAt", "name")
             .required(),

@@ -1,5 +1,6 @@
 import config from "./config"
 import amqplib from "amqplib"
+import { S3 } from "./storage"
 import { HttpError } from "./error"
 import { createCategory } from "routers/category/create"
 
@@ -100,10 +101,12 @@ export class RabbitMQ {
     channel.consume(queue, async (msg) => {
       if (!msg) return
 
-      const category: MQCreateCategory = JSON.parse(msg.content.toString())
+      const user: MQCreateCategory = JSON.parse(msg.content.toString())
       for (const name of defaultCategories) {
-        await createCategory(category.familyid, name)
+        await createCategory(user.familyid, name)
       }
+
+      await S3.createFolder(`${user.familyid}/`)
 
       channel.ack(msg)
     })

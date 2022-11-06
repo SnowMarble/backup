@@ -1,4 +1,4 @@
-import { verify, amqp, prisma, HttpError } from "lib"
+import { verify, prisma, HttpError } from "lib"
 
 import type { Request, Response, NextFunction } from "express"
 

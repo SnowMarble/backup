@@ -3,7 +3,8 @@
   "packageManager": "yarn@3.2.4",
   "scripts": {
     "db:push": "prisma db push && prisma generate",
-    "deploy": "./script/deploy.sh"
+    "deploy": "./script/deploy.sh",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@prisma/client": "^4.5.0",

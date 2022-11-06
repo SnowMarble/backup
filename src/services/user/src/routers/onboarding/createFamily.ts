@@ -1,4 +1,4 @@
-import { prisma, amqp } from "lib"
+import { RabbitMQ, prisma } from "lib"
 
 import type { Response } from "express"
 import type { OnboardingFamilyBody } from "interface/body"
@@ -16,13 +16,12 @@ export default async (req: OnboardingFamilyBody, res: Response) => {
     },
   })
 
-  const connection = await amqp()
-  const channel = await connection.createChannel()
-  const queue = "create-category"
+  const createCategoryQueue = "create-category"
+  const channel = await RabbitMQ.createChannel()
 
-  await channel.assertQueue(queue)
+  await channel.assertQueue(createCategoryQueue)
   channel.sendToQueue(
-    queue,
+    createCategoryQueue,
     Buffer.from(JSON.stringify({ familyid: family.id }))
   )
 

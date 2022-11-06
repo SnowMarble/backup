@@ -1,8 +1,8 @@
 import cors from "cors"
 import helmet from "helmet"
 import express from "express"
-import amqplib from "amqplib"
-import { HttpError } from "lib"
+// import amqplib from "amqplib"
+import { HttpError, RabbitMQ } from "lib"
 import config from "lib/config"
 import { readdirSync } from "fs"
 import { join } from "path/posix"
@@ -88,40 +88,7 @@ export default class {
 
   private initializeRabbitMQ(): void {
     ; (async () => {
-      const queue = "user-identity"
-      const connection = await amqplib.connect(config.rabbitMQURI)
-      const channel = await connection.createChannel()
-
-      await channel.assertQueue(queue)
-
-      channel.consume(queue, async (msg) => {
-        if (msg !== null) {
-          try {
-            const token = msg.content.toString()
-            const identity = await checkIdentity(token)
-
-            channel.sendToQueue(
-              msg.properties.replyTo,
-              Buffer.from(JSON.stringify({ data: identity }))
-            )
-          } catch (error) {
-            if (error instanceof HttpError) {
-              const errorResponse = {
-                code: error.code,
-                status: error.status,
-                message: error.message,
-              }
-
-              channel.sendToQueue(
-                msg.properties.replyTo,
-                Buffer.from(JSON.stringify({ error: errorResponse }))
-              )
-            }
-          } finally {
-            channel.ack(msg)
-          }
-        }
-      })
+      await RabbitMQ.userIdentity()
     })()
   }
 

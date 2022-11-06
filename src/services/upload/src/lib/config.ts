@@ -13,5 +13,8 @@ const check = (key: string, defaultValue?: string): string => {
 export default {
   port: check('PORT'),
 
+  NCP_ACCESS_KEY: check('NCP_ACCESS_KEY'),
+  NCP_SECRET_KEY: check('NCP_SECRET_KEY'),
+
   rabbitMQURI: check('RABBITMQ_URI'),
 }

@@ -1,4 +1,4 @@
-import { prisma } from "lib"
+import { prisma, S3 } from "lib"
 
 import type { Response } from "express"
 import type { CreateCategoryType } from "interface/body"
