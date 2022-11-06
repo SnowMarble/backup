@@ -40,6 +40,21 @@ export type Category = {
   updatedAt: Date
 }
 
+/**
+ * Model Story
+ * 
+ */
+export type Story = {
+  id: number
+  description: string | null
+  image: string
+  createdAt: Date
+  updatedAt: Date
+  lastViewed: Date
+  familyId: number
+  AlbumId: number
+}
+
 
 /**
  * ##  Prisma Client ʲˢ
@@ -200,6 +215,16 @@ export class PrismaClient<
     * ```
     */
   get category(): Prisma.CategoryDelegate<GlobalReject>;
+
+  /**
+   * `prisma.story`: Exposes CRUD operations for the **Story** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Stories
+    * const stories = await prisma.story.findMany()
+    * ```
+    */
+  get story(): Prisma.StoryDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -689,7 +714,8 @@ export namespace Prisma {
 
   export const ModelName: {
     Album: 'Album',
-    Category: 'Category'
+    Category: 'Category',
+    Story: 'Story'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -846,6 +872,55 @@ export namespace Prisma {
   /**
    * Count Types
    */
+
+
+  /**
+   * Count Type AlbumCountOutputType
+   */
+
+
+  export type AlbumCountOutputType = {
+    Story: number
+  }
+
+  export type AlbumCountOutputTypeSelect = {
+    Story?: boolean
+  }
+
+  export type AlbumCountOutputTypeGetPayload<
+    S extends boolean | null | undefined | AlbumCountOutputTypeArgs,
+    U = keyof S
+      > = S extends true
+        ? AlbumCountOutputType
+    : S extends undefined
+    ? never
+    : S extends AlbumCountOutputTypeArgs
+    ?'include' extends U
+    ? AlbumCountOutputType 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]:
+    P extends keyof AlbumCountOutputType ? AlbumCountOutputType[P] : never
+  } 
+    : AlbumCountOutputType
+  : AlbumCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * AlbumCountOutputType without action
+   */
+  export type AlbumCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the AlbumCountOutputType
+     * 
+    **/
+    select?: AlbumCountOutputTypeSelect | null
+  }
+
 
 
   /**
@@ -1147,10 +1222,14 @@ export namespace Prisma {
     familyId?: boolean
     CategoryId?: boolean
     Category?: boolean | CategoryArgs
+    Story?: boolean | StoryFindManyArgs
+    _count?: boolean | AlbumCountOutputTypeArgs
   }
 
   export type AlbumInclude = {
     Category?: boolean | CategoryArgs
+    Story?: boolean | StoryFindManyArgs
+    _count?: boolean | AlbumCountOutputTypeArgs
   }
 
   export type AlbumGetPayload<
@@ -1164,12 +1243,16 @@ export namespace Prisma {
     ?'include' extends U
     ? Album  & {
     [P in TrueKeys<S['include']>]:
-        P extends 'Category' ? CategoryGetPayload<Exclude<S['include'], undefined | null>[P]> :  never
+        P extends 'Category' ? CategoryGetPayload<Exclude<S['include'], undefined | null>[P]> :
+        P extends 'Story' ? Array < StoryGetPayload<Exclude<S['include'], undefined | null>[P]>>  :
+        P extends '_count' ? AlbumCountOutputTypeGetPayload<Exclude<S['include'], undefined | null>[P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-        P extends 'Category' ? CategoryGetPayload<Exclude<S['select'], undefined | null>[P]> :  P extends keyof Album ? Album[P] : never
+        P extends 'Category' ? CategoryGetPayload<Exclude<S['select'], undefined | null>[P]> :
+        P extends 'Story' ? Array < StoryGetPayload<Exclude<S['select'], undefined | null>[P]>>  :
+        P extends '_count' ? AlbumCountOutputTypeGetPayload<Exclude<S['select'], undefined | null>[P]> :  P extends keyof Album ? Album[P] : never
   } 
     : Album
   : Album
@@ -1545,6 +1628,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
     Category<T extends CategoryArgs = {}>(args?: Subset<T, CategoryArgs>): CheckSelect<T, Prisma__CategoryClient<Category | Null>, Prisma__CategoryClient<CategoryGetPayload<T> | Null>>;
+
+    Story<T extends StoryFindManyArgs = {}>(args?: Subset<T, StoryFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Story>| Null>, PrismaPromise<Array<StoryGetPayload<T>>| Null>>;
 
     private get _document();
     /**
@@ -2868,6 +2953,997 @@ export namespace Prisma {
 
 
   /**
+   * Model Story
+   */
+
+
+  export type AggregateStory = {
+    _count: StoryCountAggregateOutputType | null
+    _avg: StoryAvgAggregateOutputType | null
+    _sum: StorySumAggregateOutputType | null
+    _min: StoryMinAggregateOutputType | null
+    _max: StoryMaxAggregateOutputType | null
+  }
+
+  export type StoryAvgAggregateOutputType = {
+    id: number | null
+    familyId: number | null
+    AlbumId: number | null
+  }
+
+  export type StorySumAggregateOutputType = {
+    id: number | null
+    familyId: number | null
+    AlbumId: number | null
+  }
+
+  export type StoryMinAggregateOutputType = {
+    id: number | null
+    description: string | null
+    image: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    lastViewed: Date | null
+    familyId: number | null
+    AlbumId: number | null
+  }
+
+  export type StoryMaxAggregateOutputType = {
+    id: number | null
+    description: string | null
+    image: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    lastViewed: Date | null
+    familyId: number | null
+    AlbumId: number | null
+  }
+
+  export type StoryCountAggregateOutputType = {
+    id: number
+    description: number
+    image: number
+    createdAt: number
+    updatedAt: number
+    lastViewed: number
+    familyId: number
+    AlbumId: number
+    _all: number
+  }
+
+
+  export type StoryAvgAggregateInputType = {
+    id?: true
+    familyId?: true
+    AlbumId?: true
+  }
+
+  export type StorySumAggregateInputType = {
+    id?: true
+    familyId?: true
+    AlbumId?: true
+  }
+
+  export type StoryMinAggregateInputType = {
+    id?: true
+    description?: true
+    image?: true
+    createdAt?: true
+    updatedAt?: true
+    lastViewed?: true
+    familyId?: true
+    AlbumId?: true
+  }
+
+  export type StoryMaxAggregateInputType = {
+    id?: true
+    description?: true
+    image?: true
+    createdAt?: true
+    updatedAt?: true
+    lastViewed?: true
+    familyId?: true
+    AlbumId?: true
+  }
+
+  export type StoryCountAggregateInputType = {
+    id?: true
+    description?: true
+    image?: true
+    createdAt?: true
+    updatedAt?: true
+    lastViewed?: true
+    familyId?: true
+    AlbumId?: true
+    _all?: true
+  }
+
+  export type StoryAggregateArgs = {
+    /**
+     * Filter which Story to aggregate.
+     * 
+    **/
+    where?: StoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stories to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<StoryOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     * 
+    **/
+    cursor?: StoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stories from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stories.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Stories
+    **/
+    _count?: true | StoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StoryMaxAggregateInputType
+  }
+
+  export type GetStoryAggregateType<T extends StoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateStory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStory[P]>
+      : GetScalarType<T[P], AggregateStory[P]>
+  }
+
+
+
+
+  export type StoryGroupByArgs = {
+    where?: StoryWhereInput
+    orderBy?: Enumerable<StoryOrderByWithAggregationInput>
+    by: Array<StoryScalarFieldEnum>
+    having?: StoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StoryCountAggregateInputType | true
+    _avg?: StoryAvgAggregateInputType
+    _sum?: StorySumAggregateInputType
+    _min?: StoryMinAggregateInputType
+    _max?: StoryMaxAggregateInputType
+  }
+
+
+  export type StoryGroupByOutputType = {
+    id: number
+    description: string | null
+    image: string
+    createdAt: Date
+    updatedAt: Date
+    lastViewed: Date
+    familyId: number
+    AlbumId: number
+    _count: StoryCountAggregateOutputType | null
+    _avg: StoryAvgAggregateOutputType | null
+    _sum: StorySumAggregateOutputType | null
+    _min: StoryMinAggregateOutputType | null
+    _max: StoryMaxAggregateOutputType | null
+  }
+
+  type GetStoryGroupByPayload<T extends StoryGroupByArgs> = PrismaPromise<
+    Array<
+      PickArray<StoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StoryGroupByOutputType[P]>
+            : GetScalarType<T[P], StoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StorySelect = {
+    id?: boolean
+    description?: boolean
+    image?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lastViewed?: boolean
+    familyId?: boolean
+    AlbumId?: boolean
+    Album?: boolean | AlbumArgs
+  }
+
+  export type StoryInclude = {
+    Album?: boolean | AlbumArgs
+  }
+
+  export type StoryGetPayload<
+    S extends boolean | null | undefined | StoryArgs,
+    U = keyof S
+      > = S extends true
+        ? Story
+    : S extends undefined
+    ? never
+    : S extends StoryArgs | StoryFindManyArgs
+    ?'include' extends U
+    ? Story  & {
+    [P in TrueKeys<S['include']>]:
+        P extends 'Album' ? AlbumGetPayload<Exclude<S['include'], undefined | null>[P]> :  never
+  } 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]:
+        P extends 'Album' ? AlbumGetPayload<Exclude<S['select'], undefined | null>[P]> :  P extends keyof Story ? Story[P] : never
+  } 
+    : Story
+  : Story
+
+
+  type StoryCountArgs = Merge<
+    Omit<StoryFindManyArgs, 'select' | 'include'> & {
+      select?: StoryCountAggregateInputType | true
+    }
+  >
+
+  export interface StoryDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+    /**
+     * Find zero or one Story that matches the filter.
+     * @param {StoryFindUniqueArgs} args - Arguments to find a Story
+     * @example
+     * // Get one Story
+     * const story = await prisma.story.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends StoryFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, StoryFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Story'> extends True ? CheckSelect<T, Prisma__StoryClient<Story>, Prisma__StoryClient<StoryGetPayload<T>>> : CheckSelect<T, Prisma__StoryClient<Story | null, null>, Prisma__StoryClient<StoryGetPayload<T> | null, null>>
+
+    /**
+     * Find the first Story that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryFindFirstArgs} args - Arguments to find a Story
+     * @example
+     * // Get one Story
+     * const story = await prisma.story.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends StoryFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, StoryFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Story'> extends True ? CheckSelect<T, Prisma__StoryClient<Story>, Prisma__StoryClient<StoryGetPayload<T>>> : CheckSelect<T, Prisma__StoryClient<Story | null, null>, Prisma__StoryClient<StoryGetPayload<T> | null, null>>
+
+    /**
+     * Find zero or more Stories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Stories
+     * const stories = await prisma.story.findMany()
+     * 
+     * // Get first 10 Stories
+     * const stories = await prisma.story.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const storyWithIdOnly = await prisma.story.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends StoryFindManyArgs>(
+      args?: SelectSubset<T, StoryFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Story>>, PrismaPromise<Array<StoryGetPayload<T>>>>
+
+    /**
+     * Create a Story.
+     * @param {StoryCreateArgs} args - Arguments to create a Story.
+     * @example
+     * // Create one Story
+     * const Story = await prisma.story.create({
+     *   data: {
+     *     // ... data to create a Story
+     *   }
+     * })
+     * 
+    **/
+    create<T extends StoryCreateArgs>(
+      args: SelectSubset<T, StoryCreateArgs>
+    ): CheckSelect<T, Prisma__StoryClient<Story>, Prisma__StoryClient<StoryGetPayload<T>>>
+
+    /**
+     * Create many Stories.
+     *     @param {StoryCreateManyArgs} args - Arguments to create many Stories.
+     *     @example
+     *     // Create many Stories
+     *     const story = await prisma.story.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends StoryCreateManyArgs>(
+      args?: SelectSubset<T, StoryCreateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Story.
+     * @param {StoryDeleteArgs} args - Arguments to delete one Story.
+     * @example
+     * // Delete one Story
+     * const Story = await prisma.story.delete({
+     *   where: {
+     *     // ... filter to delete one Story
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends StoryDeleteArgs>(
+      args: SelectSubset<T, StoryDeleteArgs>
+    ): CheckSelect<T, Prisma__StoryClient<Story>, Prisma__StoryClient<StoryGetPayload<T>>>
+
+    /**
+     * Update one Story.
+     * @param {StoryUpdateArgs} args - Arguments to update one Story.
+     * @example
+     * // Update one Story
+     * const story = await prisma.story.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends StoryUpdateArgs>(
+      args: SelectSubset<T, StoryUpdateArgs>
+    ): CheckSelect<T, Prisma__StoryClient<Story>, Prisma__StoryClient<StoryGetPayload<T>>>
+
+    /**
+     * Delete zero or more Stories.
+     * @param {StoryDeleteManyArgs} args - Arguments to filter Stories to delete.
+     * @example
+     * // Delete a few Stories
+     * const { count } = await prisma.story.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends StoryDeleteManyArgs>(
+      args?: SelectSubset<T, StoryDeleteManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Stories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Stories
+     * const story = await prisma.story.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends StoryUpdateManyArgs>(
+      args: SelectSubset<T, StoryUpdateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Story.
+     * @param {StoryUpsertArgs} args - Arguments to update or create a Story.
+     * @example
+     * // Update or create a Story
+     * const story = await prisma.story.upsert({
+     *   create: {
+     *     // ... data to create a Story
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Story we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends StoryUpsertArgs>(
+      args: SelectSubset<T, StoryUpsertArgs>
+    ): CheckSelect<T, Prisma__StoryClient<Story>, Prisma__StoryClient<StoryGetPayload<T>>>
+
+    /**
+     * Find one Story that matches the filter or throw
+     * `NotFoundError` if no matches were found.
+     * @param {StoryFindUniqueOrThrowArgs} args - Arguments to find a Story
+     * @example
+     * // Get one Story
+     * const story = await prisma.story.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends StoryFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, StoryFindUniqueOrThrowArgs>
+    ): CheckSelect<T, Prisma__StoryClient<Story>, Prisma__StoryClient<StoryGetPayload<T>>>
+
+    /**
+     * Find the first Story that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryFindFirstOrThrowArgs} args - Arguments to find a Story
+     * @example
+     * // Get one Story
+     * const story = await prisma.story.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends StoryFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, StoryFindFirstOrThrowArgs>
+    ): CheckSelect<T, Prisma__StoryClient<Story>, Prisma__StoryClient<StoryGetPayload<T>>>
+
+    /**
+     * Count the number of Stories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryCountArgs} args - Arguments to filter Stories to count.
+     * @example
+     * // Count the number of Stories
+     * const count = await prisma.story.count({
+     *   where: {
+     *     // ... the filter for the Stories we want to count
+     *   }
+     * })
+    **/
+    count<T extends StoryCountArgs>(
+      args?: Subset<T, StoryCountArgs>,
+    ): PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Story.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StoryAggregateArgs>(args: Subset<T, StoryAggregateArgs>): PrismaPromise<GetStoryAggregateType<T>>
+
+    /**
+     * Group by Story.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StoryGroupByArgs['orderBy'] }
+        : { orderBy?: StoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStoryGroupByPayload<T> : PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Story.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__StoryClient<T, Null = never> implements PrismaPromise<T> {
+    [prisma]: true;
+    private readonly _dmmf;
+    private readonly _fetcher;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+    Album<T extends AlbumArgs = {}>(args?: Subset<T, AlbumArgs>): CheckSelect<T, Prisma__AlbumClient<Album | Null>, Prisma__AlbumClient<AlbumGetPayload<T> | Null>>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Story base type for findUnique actions
+   */
+  export type StoryFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Story
+     * 
+    **/
+    select?: StorySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: StoryInclude | null
+    /**
+     * Filter, which Story to fetch.
+     * 
+    **/
+    where: StoryWhereUniqueInput
+  }
+
+  /**
+   * Story: findUnique
+   */
+  export interface StoryFindUniqueArgs extends StoryFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Story base type for findFirst actions
+   */
+  export type StoryFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Story
+     * 
+    **/
+    select?: StorySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: StoryInclude | null
+    /**
+     * Filter, which Story to fetch.
+     * 
+    **/
+    where?: StoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stories to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<StoryOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Stories.
+     * 
+    **/
+    cursor?: StoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stories from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stories.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Stories.
+     * 
+    **/
+    distinct?: Enumerable<StoryScalarFieldEnum>
+  }
+
+  /**
+   * Story: findFirst
+   */
+  export interface StoryFindFirstArgs extends StoryFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Story findMany
+   */
+  export type StoryFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Story
+     * 
+    **/
+    select?: StorySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: StoryInclude | null
+    /**
+     * Filter, which Stories to fetch.
+     * 
+    **/
+    where?: StoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stories to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<StoryOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Stories.
+     * 
+    **/
+    cursor?: StoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stories from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stories.
+     * 
+    **/
+    skip?: number
+    distinct?: Enumerable<StoryScalarFieldEnum>
+  }
+
+
+  /**
+   * Story create
+   */
+  export type StoryCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Story
+     * 
+    **/
+    select?: StorySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: StoryInclude | null
+    /**
+     * The data needed to create a Story.
+     * 
+    **/
+    data: XOR<StoryCreateInput, StoryUncheckedCreateInput>
+  }
+
+
+  /**
+   * Story createMany
+   */
+  export type StoryCreateManyArgs = {
+    /**
+     * The data used to create many Stories.
+     * 
+    **/
+    data: Enumerable<StoryCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Story update
+   */
+  export type StoryUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Story
+     * 
+    **/
+    select?: StorySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: StoryInclude | null
+    /**
+     * The data needed to update a Story.
+     * 
+    **/
+    data: XOR<StoryUpdateInput, StoryUncheckedUpdateInput>
+    /**
+     * Choose, which Story to update.
+     * 
+    **/
+    where: StoryWhereUniqueInput
+  }
+
+
+  /**
+   * Story updateMany
+   */
+  export type StoryUpdateManyArgs = {
+    /**
+     * The data used to update Stories.
+     * 
+    **/
+    data: XOR<StoryUpdateManyMutationInput, StoryUncheckedUpdateManyInput>
+    /**
+     * Filter which Stories to update
+     * 
+    **/
+    where?: StoryWhereInput
+  }
+
+
+  /**
+   * Story upsert
+   */
+  export type StoryUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Story
+     * 
+    **/
+    select?: StorySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: StoryInclude | null
+    /**
+     * The filter to search for the Story to update in case it exists.
+     * 
+    **/
+    where: StoryWhereUniqueInput
+    /**
+     * In case the Story found by the `where` argument doesn't exist, create a new Story with this data.
+     * 
+    **/
+    create: XOR<StoryCreateInput, StoryUncheckedCreateInput>
+    /**
+     * In case the Story was found with the provided `where` argument, update it with this data.
+     * 
+    **/
+    update: XOR<StoryUpdateInput, StoryUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Story delete
+   */
+  export type StoryDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Story
+     * 
+    **/
+    select?: StorySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: StoryInclude | null
+    /**
+     * Filter which Story to delete.
+     * 
+    **/
+    where: StoryWhereUniqueInput
+  }
+
+
+  /**
+   * Story deleteMany
+   */
+  export type StoryDeleteManyArgs = {
+    /**
+     * Filter which Stories to delete
+     * 
+    **/
+    where?: StoryWhereInput
+  }
+
+
+  /**
+   * Story: findUniqueOrThrow
+   */
+  export type StoryFindUniqueOrThrowArgs = StoryFindUniqueArgsBase
+      
+
+  /**
+   * Story: findFirstOrThrow
+   */
+  export type StoryFindFirstOrThrowArgs = StoryFindFirstArgsBase
+      
+
+  /**
+   * Story without action
+   */
+  export type StoryArgs = {
+    /**
+     * Select specific fields to fetch from the Story
+     * 
+    **/
+    select?: StorySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: StoryInclude | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -2908,6 +3984,20 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const StoryScalarFieldEnum: {
+    id: 'id',
+    description: 'description',
+    image: 'image',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    lastViewed: 'lastViewed',
+    familyId: 'familyId',
+    AlbumId: 'AlbumId'
+  };
+
+  export type StoryScalarFieldEnum = (typeof StoryScalarFieldEnum)[keyof typeof StoryScalarFieldEnum]
+
+
   export const TransactionIsolationLevel: {
     ReadUncommitted: 'ReadUncommitted',
     ReadCommitted: 'ReadCommitted',
@@ -2937,6 +4027,7 @@ export namespace Prisma {
     familyId?: IntFilter | number
     CategoryId?: IntFilter | number
     Category?: XOR<CategoryRelationFilter, CategoryWhereInput>
+    Story?: StoryListRelationFilter
   }
 
   export type AlbumOrderByWithRelationInput = {
@@ -2950,6 +4041,7 @@ export namespace Prisma {
     familyId?: SortOrder
     CategoryId?: SortOrder
     Category?: CategoryOrderByWithRelationInput
+    Story?: StoryOrderByRelationAggregateInput
   }
 
   export type AlbumWhereUniqueInput = {
@@ -3037,6 +4129,67 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
 
+  export type StoryWhereInput = {
+    AND?: Enumerable<StoryWhereInput>
+    OR?: Enumerable<StoryWhereInput>
+    NOT?: Enumerable<StoryWhereInput>
+    id?: IntFilter | number
+    description?: StringNullableFilter | string | null
+    image?: StringFilter | string
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+    lastViewed?: DateTimeFilter | Date | string
+    familyId?: IntFilter | number
+    AlbumId?: IntFilter | number
+    Album?: XOR<AlbumRelationFilter, AlbumWhereInput>
+  }
+
+  export type StoryOrderByWithRelationInput = {
+    id?: SortOrder
+    description?: SortOrder
+    image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lastViewed?: SortOrder
+    familyId?: SortOrder
+    AlbumId?: SortOrder
+    Album?: AlbumOrderByWithRelationInput
+  }
+
+  export type StoryWhereUniqueInput = {
+    id?: number
+  }
+
+  export type StoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    description?: SortOrder
+    image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lastViewed?: SortOrder
+    familyId?: SortOrder
+    AlbumId?: SortOrder
+    _count?: StoryCountOrderByAggregateInput
+    _avg?: StoryAvgOrderByAggregateInput
+    _max?: StoryMaxOrderByAggregateInput
+    _min?: StoryMinOrderByAggregateInput
+    _sum?: StorySumOrderByAggregateInput
+  }
+
+  export type StoryScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<StoryScalarWhereWithAggregatesInput>
+    OR?: Enumerable<StoryScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<StoryScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    description?: StringNullableWithAggregatesFilter | string | null
+    image?: StringWithAggregatesFilter | string
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter | Date | string
+    lastViewed?: DateTimeWithAggregatesFilter | Date | string
+    familyId?: IntWithAggregatesFilter | number
+    AlbumId?: IntWithAggregatesFilter | number
+  }
+
   export type AlbumCreateInput = {
     name: string
     description?: string | null
@@ -3046,6 +4199,7 @@ export namespace Prisma {
     lastViewed?: Date | string
     familyId: number
     Category: CategoryCreateNestedOneWithoutAlbumsInput
+    Story?: StoryCreateNestedManyWithoutAlbumInput
   }
 
   export type AlbumUncheckedCreateInput = {
@@ -3058,6 +4212,7 @@ export namespace Prisma {
     lastViewed?: Date | string
     familyId: number
     CategoryId: number
+    Story?: StoryUncheckedCreateNestedManyWithoutAlbumInput
   }
 
   export type AlbumUpdateInput = {
@@ -3069,6 +4224,7 @@ export namespace Prisma {
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
     Category?: CategoryUpdateOneRequiredWithoutAlbumsNestedInput
+    Story?: StoryUpdateManyWithoutAlbumNestedInput
   }
 
   export type AlbumUncheckedUpdateInput = {
@@ -3081,6 +4237,7 @@ export namespace Prisma {
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
     CategoryId?: IntFieldUpdateOperationsInput | number
+    Story?: StoryUncheckedUpdateManyWithoutAlbumNestedInput
   }
 
   export type AlbumCreateManyInput = {
@@ -3174,6 +4331,79 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type StoryCreateInput = {
+    description?: string | null
+    image: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastViewed?: Date | string
+    familyId: number
+    Album: AlbumCreateNestedOneWithoutStoryInput
+  }
+
+  export type StoryUncheckedCreateInput = {
+    id?: number
+    description?: string | null
+    image: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastViewed?: Date | string
+    familyId: number
+    AlbumId: number
+  }
+
+  export type StoryUpdateInput = {
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
+    familyId?: IntFieldUpdateOperationsInput | number
+    Album?: AlbumUpdateOneRequiredWithoutStoryNestedInput
+  }
+
+  export type StoryUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
+    familyId?: IntFieldUpdateOperationsInput | number
+    AlbumId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type StoryCreateManyInput = {
+    id?: number
+    description?: string | null
+    image: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastViewed?: Date | string
+    familyId: number
+    AlbumId: number
+  }
+
+  export type StoryUpdateManyMutationInput = {
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
+    familyId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type StoryUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
+    familyId?: IntFieldUpdateOperationsInput | number
+    AlbumId?: IntFieldUpdateOperationsInput | number
+  }
+
   export type IntFilter = {
     equals?: number
     in?: Enumerable<number>
@@ -3227,6 +4457,16 @@ export namespace Prisma {
   export type CategoryRelationFilter = {
     is?: CategoryWhereInput
     isNot?: CategoryWhereInput
+  }
+
+  export type StoryListRelationFilter = {
+    every?: StoryWhereInput
+    some?: StoryWhereInput
+    none?: StoryWhereInput
+  }
+
+  export type StoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type AlbumCountOrderByAggregateInput = {
@@ -3385,10 +4625,74 @@ export namespace Prisma {
     familyId?: SortOrder
   }
 
+  export type AlbumRelationFilter = {
+    is?: AlbumWhereInput
+    isNot?: AlbumWhereInput
+  }
+
+  export type StoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lastViewed?: SortOrder
+    familyId?: SortOrder
+    AlbumId?: SortOrder
+  }
+
+  export type StoryAvgOrderByAggregateInput = {
+    id?: SortOrder
+    familyId?: SortOrder
+    AlbumId?: SortOrder
+  }
+
+  export type StoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lastViewed?: SortOrder
+    familyId?: SortOrder
+    AlbumId?: SortOrder
+  }
+
+  export type StoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lastViewed?: SortOrder
+    familyId?: SortOrder
+    AlbumId?: SortOrder
+  }
+
+  export type StorySumOrderByAggregateInput = {
+    id?: SortOrder
+    familyId?: SortOrder
+    AlbumId?: SortOrder
+  }
+
   export type CategoryCreateNestedOneWithoutAlbumsInput = {
     create?: XOR<CategoryCreateWithoutAlbumsInput, CategoryUncheckedCreateWithoutAlbumsInput>
     connectOrCreate?: CategoryCreateOrConnectWithoutAlbumsInput
     connect?: CategoryWhereUniqueInput
+  }
+
+  export type StoryCreateNestedManyWithoutAlbumInput = {
+    create?: XOR<Enumerable<StoryCreateWithoutAlbumInput>, Enumerable<StoryUncheckedCreateWithoutAlbumInput>>
+    connectOrCreate?: Enumerable<StoryCreateOrConnectWithoutAlbumInput>
+    createMany?: StoryCreateManyAlbumInputEnvelope
+    connect?: Enumerable<StoryWhereUniqueInput>
+  }
+
+  export type StoryUncheckedCreateNestedManyWithoutAlbumInput = {
+    create?: XOR<Enumerable<StoryCreateWithoutAlbumInput>, Enumerable<StoryUncheckedCreateWithoutAlbumInput>>
+    connectOrCreate?: Enumerable<StoryCreateOrConnectWithoutAlbumInput>
+    createMany?: StoryCreateManyAlbumInputEnvelope
+    connect?: Enumerable<StoryWhereUniqueInput>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3417,6 +4721,34 @@ export namespace Prisma {
     upsert?: CategoryUpsertWithoutAlbumsInput
     connect?: CategoryWhereUniqueInput
     update?: XOR<CategoryUpdateWithoutAlbumsInput, CategoryUncheckedUpdateWithoutAlbumsInput>
+  }
+
+  export type StoryUpdateManyWithoutAlbumNestedInput = {
+    create?: XOR<Enumerable<StoryCreateWithoutAlbumInput>, Enumerable<StoryUncheckedCreateWithoutAlbumInput>>
+    connectOrCreate?: Enumerable<StoryCreateOrConnectWithoutAlbumInput>
+    upsert?: Enumerable<StoryUpsertWithWhereUniqueWithoutAlbumInput>
+    createMany?: StoryCreateManyAlbumInputEnvelope
+    set?: Enumerable<StoryWhereUniqueInput>
+    disconnect?: Enumerable<StoryWhereUniqueInput>
+    delete?: Enumerable<StoryWhereUniqueInput>
+    connect?: Enumerable<StoryWhereUniqueInput>
+    update?: Enumerable<StoryUpdateWithWhereUniqueWithoutAlbumInput>
+    updateMany?: Enumerable<StoryUpdateManyWithWhereWithoutAlbumInput>
+    deleteMany?: Enumerable<StoryScalarWhereInput>
+  }
+
+  export type StoryUncheckedUpdateManyWithoutAlbumNestedInput = {
+    create?: XOR<Enumerable<StoryCreateWithoutAlbumInput>, Enumerable<StoryUncheckedCreateWithoutAlbumInput>>
+    connectOrCreate?: Enumerable<StoryCreateOrConnectWithoutAlbumInput>
+    upsert?: Enumerable<StoryUpsertWithWhereUniqueWithoutAlbumInput>
+    createMany?: StoryCreateManyAlbumInputEnvelope
+    set?: Enumerable<StoryWhereUniqueInput>
+    disconnect?: Enumerable<StoryWhereUniqueInput>
+    delete?: Enumerable<StoryWhereUniqueInput>
+    connect?: Enumerable<StoryWhereUniqueInput>
+    update?: Enumerable<StoryUpdateWithWhereUniqueWithoutAlbumInput>
+    updateMany?: Enumerable<StoryUpdateManyWithWhereWithoutAlbumInput>
+    deleteMany?: Enumerable<StoryScalarWhereInput>
   }
 
   export type AlbumCreateNestedManyWithoutCategoryInput = {
@@ -3459,6 +4791,20 @@ export namespace Prisma {
     update?: Enumerable<AlbumUpdateWithWhereUniqueWithoutCategoryInput>
     updateMany?: Enumerable<AlbumUpdateManyWithWhereWithoutCategoryInput>
     deleteMany?: Enumerable<AlbumScalarWhereInput>
+  }
+
+  export type AlbumCreateNestedOneWithoutStoryInput = {
+    create?: XOR<AlbumCreateWithoutStoryInput, AlbumUncheckedCreateWithoutStoryInput>
+    connectOrCreate?: AlbumCreateOrConnectWithoutStoryInput
+    connect?: AlbumWhereUniqueInput
+  }
+
+  export type AlbumUpdateOneRequiredWithoutStoryNestedInput = {
+    create?: XOR<AlbumCreateWithoutStoryInput, AlbumUncheckedCreateWithoutStoryInput>
+    connectOrCreate?: AlbumCreateOrConnectWithoutStoryInput
+    upsert?: AlbumUpsertWithoutStoryInput
+    connect?: AlbumWhereUniqueInput
+    update?: XOR<AlbumUpdateWithoutStoryInput, AlbumUncheckedUpdateWithoutStoryInput>
   }
 
   export type NestedIntFilter = {
@@ -3617,6 +4963,35 @@ export namespace Prisma {
     create: XOR<CategoryCreateWithoutAlbumsInput, CategoryUncheckedCreateWithoutAlbumsInput>
   }
 
+  export type StoryCreateWithoutAlbumInput = {
+    description?: string | null
+    image: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastViewed?: Date | string
+    familyId: number
+  }
+
+  export type StoryUncheckedCreateWithoutAlbumInput = {
+    id?: number
+    description?: string | null
+    image: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastViewed?: Date | string
+    familyId: number
+  }
+
+  export type StoryCreateOrConnectWithoutAlbumInput = {
+    where: StoryWhereUniqueInput
+    create: XOR<StoryCreateWithoutAlbumInput, StoryUncheckedCreateWithoutAlbumInput>
+  }
+
+  export type StoryCreateManyAlbumInputEnvelope = {
+    data: Enumerable<StoryCreateManyAlbumInput>
+    skipDuplicates?: boolean
+  }
+
   export type CategoryUpsertWithoutAlbumsInput = {
     update: XOR<CategoryUpdateWithoutAlbumsInput, CategoryUncheckedUpdateWithoutAlbumsInput>
     create: XOR<CategoryCreateWithoutAlbumsInput, CategoryUncheckedCreateWithoutAlbumsInput>
@@ -3637,6 +5012,36 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type StoryUpsertWithWhereUniqueWithoutAlbumInput = {
+    where: StoryWhereUniqueInput
+    update: XOR<StoryUpdateWithoutAlbumInput, StoryUncheckedUpdateWithoutAlbumInput>
+    create: XOR<StoryCreateWithoutAlbumInput, StoryUncheckedCreateWithoutAlbumInput>
+  }
+
+  export type StoryUpdateWithWhereUniqueWithoutAlbumInput = {
+    where: StoryWhereUniqueInput
+    data: XOR<StoryUpdateWithoutAlbumInput, StoryUncheckedUpdateWithoutAlbumInput>
+  }
+
+  export type StoryUpdateManyWithWhereWithoutAlbumInput = {
+    where: StoryScalarWhereInput
+    data: XOR<StoryUpdateManyMutationInput, StoryUncheckedUpdateManyWithoutStoryInput>
+  }
+
+  export type StoryScalarWhereInput = {
+    AND?: Enumerable<StoryScalarWhereInput>
+    OR?: Enumerable<StoryScalarWhereInput>
+    NOT?: Enumerable<StoryScalarWhereInput>
+    id?: IntFilter | number
+    description?: StringNullableFilter | string | null
+    image?: StringFilter | string
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+    lastViewed?: DateTimeFilter | Date | string
+    familyId?: IntFilter | number
+    AlbumId?: IntFilter | number
+  }
+
   export type AlbumCreateWithoutCategoryInput = {
     name: string
     description?: string | null
@@ -3645,6 +5050,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastViewed?: Date | string
     familyId: number
+    Story?: StoryCreateNestedManyWithoutAlbumInput
   }
 
   export type AlbumUncheckedCreateWithoutCategoryInput = {
@@ -3656,6 +5062,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastViewed?: Date | string
     familyId: number
+    Story?: StoryUncheckedCreateNestedManyWithoutAlbumInput
   }
 
   export type AlbumCreateOrConnectWithoutCategoryInput = {
@@ -3699,6 +5106,101 @@ export namespace Prisma {
     CategoryId?: IntFilter | number
   }
 
+  export type AlbumCreateWithoutStoryInput = {
+    name: string
+    description?: string | null
+    evnetDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastViewed?: Date | string
+    familyId: number
+    Category: CategoryCreateNestedOneWithoutAlbumsInput
+  }
+
+  export type AlbumUncheckedCreateWithoutStoryInput = {
+    id?: number
+    name: string
+    description?: string | null
+    evnetDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastViewed?: Date | string
+    familyId: number
+    CategoryId: number
+  }
+
+  export type AlbumCreateOrConnectWithoutStoryInput = {
+    where: AlbumWhereUniqueInput
+    create: XOR<AlbumCreateWithoutStoryInput, AlbumUncheckedCreateWithoutStoryInput>
+  }
+
+  export type AlbumUpsertWithoutStoryInput = {
+    update: XOR<AlbumUpdateWithoutStoryInput, AlbumUncheckedUpdateWithoutStoryInput>
+    create: XOR<AlbumCreateWithoutStoryInput, AlbumUncheckedCreateWithoutStoryInput>
+  }
+
+  export type AlbumUpdateWithoutStoryInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
+    familyId?: IntFieldUpdateOperationsInput | number
+    Category?: CategoryUpdateOneRequiredWithoutAlbumsNestedInput
+  }
+
+  export type AlbumUncheckedUpdateWithoutStoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
+    familyId?: IntFieldUpdateOperationsInput | number
+    CategoryId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type StoryCreateManyAlbumInput = {
+    id?: number
+    description?: string | null
+    image: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastViewed?: Date | string
+    familyId: number
+  }
+
+  export type StoryUpdateWithoutAlbumInput = {
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
+    familyId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type StoryUncheckedUpdateWithoutAlbumInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
+    familyId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type StoryUncheckedUpdateManyWithoutStoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
+    familyId?: IntFieldUpdateOperationsInput | number
+  }
+
   export type AlbumCreateManyCategoryInput = {
     id?: number
     name: string
@@ -3718,6 +5220,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
+    Story?: StoryUpdateManyWithoutAlbumNestedInput
   }
 
   export type AlbumUncheckedUpdateWithoutCategoryInput = {
@@ -3729,6 +5232,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
+    Story?: StoryUncheckedUpdateManyWithoutAlbumNestedInput
   }
 
   export type AlbumUncheckedUpdateManyWithoutAlbumsInput = {

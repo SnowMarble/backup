@@ -3,6 +3,7 @@ import { checkRouter } from "lib"
 
 import get from "./get"
 import create from "./create"
+import stories from "./stories"
 
 export default checkRouter({
   root: "/album",
@@ -38,5 +39,11 @@ export default checkRouter({
         },
       },
     },
+    {
+      path: "/:albumId",
+      method: "get",
+      needAuth: true,
+      handler: stories,
+    }
   ],
 })

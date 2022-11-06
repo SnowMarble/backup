@@ -113,6 +113,17 @@ exports.Prisma.SortOrder = makeEnum({
   desc: 'desc'
 });
 
+exports.Prisma.StoryScalarFieldEnum = makeEnum({
+  id: 'id',
+  description: 'description',
+  image: 'image',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  lastViewed: 'lastViewed',
+  familyId: 'familyId',
+  AlbumId: 'AlbumId'
+});
+
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   ReadUncommitted: 'ReadUncommitted',
   ReadCommitted: 'ReadCommitted',
@@ -123,7 +134,8 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.ModelName = makeEnum({
   Album: 'Album',
-  Category: 'Category'
+  Category: 'Category',
+  Story: 'Story'
 });
 
 /**

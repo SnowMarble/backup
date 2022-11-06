@@ -85,3 +85,33 @@ example response
   "description": null
 }
 ```
+
+### get album detail
+
+> 인증 필요
+
+```text
+[get] /album/:id
+```
+
+#### Response
+
+```json
+{
+  "id": number,
+  "createdAt": string,
+  "Category": {
+    "id": number,
+    "name": string
+  },
+  "name": string,
+  "evnetDate": string,
+  "description": string | null,
+  "Story": {
+    "id": number,
+    "image": string,
+    "description": string | null,
+    "createdAt": string
+  }[]
+}
+```

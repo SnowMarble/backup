@@ -13,3 +13,10 @@ export type CreateAlbum = Body<{
   categoryId: number
   description: string
 }>
+
+
+export type CreateStory = Body<{
+  image: string
+  albumId: number
+  description: string
+}>

@@ -19,6 +19,7 @@ model Album {
   familyId    Int
   CategoryId  Int
   Category    Category @relation(fields: [CategoryId], references: [id], onDelete: Cascade)
+  Story       Story[]
 }
 
 model Category {
@@ -30,4 +31,16 @@ model Category {
   updatedAt DateTime @default(now()) @updatedAt
 
   albums Album[]
+}
+
+model Story {
+  id          Int      @id @default(autoincrement())
+  description String?
+  image       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  lastViewed  DateTime @default(now())
+  familyId    Int
+  AlbumId     Int
+  Album       Album    @relation(fields: [AlbumId], references: [id], onDelete: Cascade)
 }

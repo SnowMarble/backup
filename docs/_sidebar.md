@@ -4,3 +4,4 @@
 - [Category](category.md)
 - [Album](album.md)
 - [Upload](upload.md)
+- [Story](story.md)
