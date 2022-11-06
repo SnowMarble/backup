@@ -13,8 +13,7 @@ export class S3 {
   private static bucket: string
 
   private static init() {
-    S3.bucket =
-      "backup-media" + (process.env.NODE_ENV === "production" ? "" : "-storage")
+    S3.bucket = "backup-media"
     S3.region = "gov-standard"
     S3.endpoint = new AWS.Endpoint("kr.object.gov-ncloudstorage.com")
     S3.s3 = new AWS.S3({

@@ -21,6 +21,7 @@ get /album
 {
     "id": number,
     "name": string,
+    "categoryId": string,
     "description": string | null
 }[]
 
