@@ -2,6 +2,7 @@ import checkRouter from "lib/checkRouter";
 
 import me from "./me";
 import familyCode from './familyCode'
+import familyMember from "./familyMember";
 
 export default checkRouter({
   root: "/user",
@@ -17,6 +18,12 @@ export default checkRouter({
       method: 'get',
       needAuth: true,
       handler: familyCode
+    },
+    {
+      path: "/family-members",
+      method: 'get',
+      needAuth: true,
+      handler: familyMember,
     }
   ],
 });

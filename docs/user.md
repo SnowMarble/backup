@@ -40,3 +40,24 @@ GET /user/me
     }
 }
 ```
+
+## Get family members
+
+> 인증이 필요합니다.
+
+```text
+GET /user/family-members
+```
+
+### Response
+
+```json
+{
+  "members": {
+    "id": "number",
+    "name": "string",
+    "email": "string",
+    "picture": "string"
+  }[]
+}
+```

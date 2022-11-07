@@ -16,14 +16,13 @@ import type { Application } from "express"
 import type { Routers } from "./interface/app"
 import type { Request, Response, NextFunction } from "express"
 
-const identity = async (req: Request, res: Response, next: NextFunction) => {
+export const identity = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.token) {
     throw new HttpError(401, "invalid token", "ERR_INVALID_TOKEN")
   }
 
   const correlationId = randomBytes(16).toString("hex")
 
-  console.log(" [x] Requesting identity: " + correlationId)
   RabbitMQ.identityReplyHandlers.set(correlationId, ({ data }: { data: User }) => {
     req.user = data
     next()

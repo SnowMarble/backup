@@ -1,4 +1,5 @@
-import { prisma, HttpError } from "lib"
+import crypto from "crypto"
+import { prisma, redis, HttpError, baseurl } from "lib"
 
 import type { Request, Response } from "express"
 
@@ -15,8 +16,8 @@ export default async (req: Request, res: Response) => {
       Category: {
         select: {
           id: true,
-          name: true
-        }
+          name: true,
+        },
       },
       name: true,
       evnetDate: true,
@@ -26,15 +27,29 @@ export default async (req: Request, res: Response) => {
           id: true,
           image: true,
           description: true,
-          createdAt: true
-        }
-      }
-    }
+          createdAt: true,
+        },
+      },
+    },
   })
 
   if (!album) {
-    throw new HttpError(404, "Album not found", "ERR_ALBUM_NOT_FOUND")
+    throw new HttpError(404, "Not Found Album", "ERR_NOT_FOUND_ALBUM")
   }
 
-  res.json(album)
+  const stories = await Promise.all(
+    album.Story.map(async (story) => {
+      const tempAuthCode = crypto.randomBytes(16).toString("hex")
+      await redis.set(tempAuthCode, story.image, "EX", 60 * 60)
+      return {
+        ...story,
+        image: `${baseurl}/upload/${story.image}?&f=${req.user.familyid}&a=${tempAuthCode}`,
+      }
+    })
+  )
+
+  res.json({
+    ...album,
+    Story: stories,
+  })
 }

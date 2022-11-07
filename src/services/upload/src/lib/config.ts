@@ -16,5 +16,7 @@ export default {
   NCP_ACCESS_KEY: check('NCP_ACCESS_KEY'),
   NCP_SECRET_KEY: check('NCP_SECRET_KEY'),
 
+  redisURI: check('UPLOAD_REDIS_URI'),
+
   rabbitMQURI: check('RABBITMQ_URI'),
 }

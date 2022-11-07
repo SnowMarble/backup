@@ -1,4 +1,4 @@
-import { prisma } from "lib"
+import { prisma, redis } from "lib"
 
 import type { Request, Response } from "express"
 
@@ -18,9 +18,9 @@ export default async (req: Request, res: Response) => {
       description: true,
     },
     orderBy: {
-      // createdAt: sort as "asc" | "desc",
       [sortType as string]: sort as "asc" | "desc",
     }
   })
+
   res.json(album)
 }

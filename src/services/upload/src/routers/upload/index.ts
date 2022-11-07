@@ -4,6 +4,8 @@ import { checkRouter } from "lib"
 import { upload } from "./upload"
 import get from "./get"
 
+import imageTempAuth from "middlewares/imageTempAuth"
+
 export default checkRouter({
   root: "/upload",
   routers: [
@@ -17,7 +19,8 @@ export default checkRouter({
     {
       path: "/:key",
       method: "get",
-      needAuth: true,
+      middlewares: [imageTempAuth],
+      needAuth: false,
       handler: get,
     },
   ],

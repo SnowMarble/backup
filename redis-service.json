@@ -1,6 +1,6 @@
 {
-  "cloudRedisUserName": "redis",
+  "cloudRedisUserName": "redis-upload",
   "cloudRedisUserPassword": "redispass1234*",
-  "cloudRedisServiceName": "redis-service",
+  "cloudRedisServiceName": "redis-upload",
   "cloudRedisServerNamePrefix": "backup"
 }

@@ -1,5 +1,5 @@
 import AWS from "aws-sdk"
-import { config } from "lib"
+import { config, HttpError } from "lib"
 
 interface UploadFileParam {
   data: Buffer
@@ -39,10 +39,7 @@ export class S3 {
       .promise()
   }
 
-  public static async uploadFile({
-    data,
-    key
-  }: UploadFileParam) {
+  public static async uploadFile({ data, key }: UploadFileParam) {
     if (!S3.s3) {
       S3.init()
     }
@@ -62,11 +59,22 @@ export class S3 {
       S3.init()
     }
 
-    return S3.s3
-      .getObject({
-        Key: key,
-        Bucket: S3.bucket,
-      })
-      .createReadStream()
+    try {
+      await S3.s3
+        .headObject({
+          Bucket: S3.bucket,
+          Key: key,
+        })
+        .promise()
+
+      return S3.s3
+        .getObject({
+          Key: key,
+          Bucket: S3.bucket,
+        })
+        .createReadStream()
+    } catch (error) {
+      throw new HttpError(404, "Not Found File", "ERR_NOT_FOUND_FILE")
+    }
   }
 }
