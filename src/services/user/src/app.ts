@@ -1,16 +1,15 @@
 import cors from "cors"
 import helmet from "helmet"
 import express from "express"
-// import amqplib from "amqplib"
-import { HttpError, RabbitMQ } from "lib"
+import { RabbitMQ } from "lib"
 import config from "lib/config"
 import { readdirSync } from "fs"
 import { join } from "path/posix"
 import bearerToken from "express-bearer-token"
 
+import identity from "./middlewares/identity"
 import errorHandler from "./middlewares/error"
 import validator from "./middlewares/validator"
-import identity, { checkIdentity } from "./middlewares/identity"
 
 import type { Application } from "express"
 import type { Routers } from "./interface/app"

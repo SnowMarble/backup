@@ -17,3 +17,7 @@ export type OnboardingFamilyBody = Body<{
 export type OnboardingFamilyCodeBody = Body<{
   familyCode: string;
 }>
+
+export type OnboardingFamilyCodeVerifyBody = Body<{
+  code: string;
+}>

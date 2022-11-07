@@ -12,11 +12,9 @@ POST /onboarding/name
 
 #### Request
 
-```json
-{
-  "name": "string"
-}
-```
+| name | type   | required | description |
+| ---- | ------ | -------- | ----------- |
+| name | string | Y        |             |
 
 #### Response
 
@@ -34,13 +32,9 @@ POST /onboarding/create-family
 
 #### Request
 
-이름은 1~30 글자 사이입니다.
-
-```json
-{
-  "name": "string"
-}
-```
+| name | type   | required | description    |
+| ---- | ------ | -------- | -------------- |
+| name | string | Y        | 1~30 글자 사이 |
 
 #### Response
 
@@ -50,4 +44,26 @@ no response, send 200 statu code
 
 ## Family code
 
-개발중
+> 인증이 필요합니다.
+
+```text
+POST /onboarding/family-code
+```
+
+#### Request
+
+| name | type   | required | description |
+| ---- | ------ | -------- | ----------- |
+| code | string | Y        |             |
+
+#### Response
+
+```json
+{
+  "name": string, // family name
+  "users": {
+    "name": string,
+    "picture": string
+  }[]
+}
+```

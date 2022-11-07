@@ -1,0 +1,6 @@
+{
+  "cloudRedisUserName": "redis",
+  "cloudRedisUserPassword": "redispass1234*",
+  "cloudRedisServiceName": "redis-service",
+  "cloudRedisServerNamePrefix": "backup"
+}

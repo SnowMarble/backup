@@ -12,11 +12,9 @@ POST /auth/login
 
 구글 아이디 토큰을 전달합니다.
 
-```json
-{
-  "idToken": "string"
-}
-```
+| name    | type   | required | description      |
+| ------- | ------ | -------- | ---------------- |
+| idToken | string | Y        | 구글 아이디 토큰 |
 
 #### Response
 

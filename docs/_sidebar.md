@@ -5,3 +5,4 @@
 - [Album](album.md)
 - [Upload](upload.md)
 - [Story](story.md)
+- [User](user.md)
