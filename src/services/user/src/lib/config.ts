@@ -18,7 +18,7 @@ export default {
   jwtRefreshLife: check('JWT_REFRESH_LIFE', '1y'),
 
   rabbitMQURI: check('RABBITMQ_URI'),
-  redisURI: check('REDIS_URI'),
+  redisURI: check('USER_REDIS_URI'),
 
   googleClientIds: check("GOOGLE_CLIENT_IDS", "").split(",").filter(Boolean),
 }
