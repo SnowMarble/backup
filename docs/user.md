@@ -19,3 +19,24 @@ GET /user/family-code
   "code": "string"
 }
 ```
+
+## Get user info
+
+> 인증이 필요합니다.
+
+```text
+GET /user/me
+```
+
+### Response
+
+```json
+{
+    "name": string,
+    "picture": string,
+    "family": {
+        "name": string,
+        "memberCount": number
+    }
+}
+```
