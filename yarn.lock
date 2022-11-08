@@ -526,6 +526,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"abstract-logging@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "abstract-logging@npm:2.0.1"
+  checksum: 6967d15e5abbafd17f56eaf30ba8278c99333586fa4f7935fd80e93cfdc006c37fcc819c5d63ee373a12e6cb2d0417f7c3c6b9e42b957a25af9937d26749415e
+  languageName: node
+  linkType: hard
+
 "accepts@npm:~1.3.8":
   version: 1.3.8
   resolution: "accepts@npm:1.3.8"
@@ -697,6 +704,17 @@ __metadata:
   version: 2.0.1
   resolution: "arrify@npm:2.0.1"
   checksum: 067c4c1afd182806a82e4c1cb8acee16ab8b5284fbca1ce29408e6e91281c36bb5b612f6ddfbd40a0f7a7e0c75bf2696eb94c027f6e328d6e9c52465c98e4209
+  languageName: node
+  linkType: hard
+
+"async-cache-dedupe@npm:1.4.2":
+  version: 1.4.2
+  resolution: "async-cache-dedupe@npm:1.4.2"
+  dependencies:
+    abstract-logging: ^2.0.1
+    mnemonist: ^0.39.2
+    safe-stable-stringify: ^2.3.1
+  checksum: 7044ad0a560f65d2c8faec9cabe9cb35068fe5a034f44777df2b4519c7d1bd3749ae7e78bdf77fa27adaffcb0b73f82706b731ea27a8c7552491bb3b6ce62315
   languageName: node
   linkType: hard
 
@@ -2253,6 +2271,23 @@ eslint@latest:
   languageName: node
   linkType: hard
 
+"ioredis@npm:5.2.3":
+  version: 5.2.3
+  resolution: "ioredis@npm:5.2.3"
+  dependencies:
+    "@ioredis/commands": ^1.1.1
+    cluster-key-slot: ^1.1.0
+    debug: ^4.3.4
+    denque: ^2.0.1
+    lodash.defaults: ^4.2.0
+    lodash.isarguments: ^3.1.0
+    redis-errors: ^1.2.0
+    redis-parser: ^3.0.0
+    standard-as-callback: ^2.1.0
+  checksum: 2cb7f0f4217e6774accad3620af1b7114722721c1d1824be2c9f0c2a77ab9629f2e0848d18b1a7208bc37796ae1207cb3e0898fce61900cfe797da0382724ad1
+  languageName: node
+  linkType: hard
+
 "ioredis@npm:^5.2.4":
   version: 5.2.4
   resolution: "ioredis@npm:5.2.4"
@@ -2876,6 +2911,15 @@ eslint@latest:
   languageName: node
   linkType: hard
 
+"mnemonist@npm:^0.39.2":
+  version: 0.39.5
+  resolution: "mnemonist@npm:0.39.5"
+  dependencies:
+    obliterator: ^2.0.1
+  checksum: 6669d687a434226924b2c84ee6eb7ce7d0f83dfc5caad8bcc164c73c0c11fb6d43cbe32636e710f068046f4b40a56c3032532554e93e02640aafc6ca3dd222e6
+  languageName: node
+  linkType: hard
+
 "ms@npm:2.0.0":
   version: 2.0.0
   resolution: "ms@npm:2.0.0"
@@ -3074,6 +3118,13 @@ eslint@latest:
   languageName: node
   linkType: hard
 
+"obliterator@npm:^2.0.1":
+  version: 2.0.4
+  resolution: "obliterator@npm:2.0.4"
+  checksum: f28ad35b6d812089315f375dc3e6e5f9bebf958ebe4b10ccd471c7115cbcf595e74bdac4783ae758e5b1f47e3096427fdb37cfa7bed566b132df92ff317b9a7c
+  languageName: node
+  linkType: hard
+
 "on-finished@npm:2.4.1":
   version: 2.4.1
   resolution: "on-finished@npm:2.4.1"
@@ -3226,6 +3277,16 @@ eslint@latest:
   dependencies:
     fast-diff: ^1.1.2
   checksum: 00ce8011cf6430158d27f9c92cfea0a7699405633f7f1d4a45f07e21bf78e99895911cbcdc3853db3a824201a7c745bd49bfea8abd5fb9883e765a90f74f8392
+  languageName: node
+  linkType: hard
+
+"prisma-redis-middleware@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "prisma-redis-middleware@npm:4.2.1"
+  dependencies:
+    async-cache-dedupe: 1.4.2
+    ioredis: 5.2.3
+  checksum: ceb0bba6d91d501824b0a09882101d25c5b1be5efc4e9a29a150230065dd8c8517268c0c9983c06cc70e195bb79753a61423d50df649de1be09e938028ecdb88
   languageName: node
   linkType: hard
 
@@ -3514,6 +3575,13 @@ eslint@latest:
   version: 5.1.2
   resolution: "safe-buffer@npm:5.1.2"
   checksum: f2f1f7943ca44a594893a852894055cf619c1fbcb611237fc39e461ae751187e7baf4dc391a72125e0ac4fb2d8c5c0b3c71529622e6a58f46b960211e704903c
+  languageName: node
+  linkType: hard
+
+"safe-stable-stringify@npm:^2.3.1":
+  version: 2.4.1
+  resolution: "safe-stable-stringify@npm:2.4.1"
+  checksum: d8e505c462031301040605a4836ca25b52a1744eff01b0939b4d43136638fb8e88e0cec3d3ab6ab8e26f501086e6ba6bf34b228f57bf2ac56cb8d4061355d723
   languageName: node
   linkType: hard
 
@@ -4204,6 +4272,7 @@ eslint@latest:
     joi: ^17.6.4
     jsonwebtoken: ^8.5.1
     prisma: ^4.5.0
+    prisma-redis-middleware: ^4.2.1
     tsconfig-paths: ^4.1.0
   languageName: unknown
   linkType: soft

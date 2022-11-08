@@ -1,3 +1,4 @@
+import crypto from "crypto"
 import config from "./config"
 import amqplib from "amqplib"
 import { S3 } from "./storage"
@@ -95,7 +96,7 @@ export class RabbitMQ {
     const queue = "create-category"
     const channel = await RabbitMQ.createChannel()
 
-    const defaultCategories = ['Daily', 'Special']
+    const defaultCategories = ["Daily", "Special"]
 
     await channel.assertQueue(queue)
     channel.consume(queue, async (msg) => {
@@ -111,4 +112,38 @@ export class RabbitMQ {
       channel.ack(msg)
     })
   }
+}
+
+let userInfoChannel: amqplib.Channel
+const userInfoHandler = new Map<string, Function>()
+
+export const userInfo = async (userId: number) => {
+  const queue = "user-info"
+  const replyQueue = "user-info-reply"
+
+  if (!userInfoChannel) {
+    userInfoChannel = await RabbitMQ.createChannel()
+    await userInfoChannel.assertQueue(queue)
+    await userInfoChannel.assertQueue(replyQueue)
+    await userInfoChannel.consume(replyQueue, (msg) => {
+      if (!msg) {
+        return
+      }
+
+      const info: User = JSON.parse(msg.content.toString())
+      const handler = userInfoHandler.get(msg.properties.correlationId)
+      handler && handler(info)
+      userInfoChannel.ack(msg)
+    })
+  }
+
+  const correlationId = crypto.randomBytes(16).toString("hex")
+  const promise = new Promise<User>((resolve) => {
+    userInfoHandler.set(correlationId, resolve)
+  })
+  userInfoChannel.sendToQueue(queue, Buffer.from(userId.toString()), {
+    correlationId,
+    replyTo: replyQueue,
+  })
+  return promise
 }

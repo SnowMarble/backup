@@ -1,16 +1,18 @@
 import cors from "cors"
 import helmet from "helmet"
 import express from "express"
-import { RabbitMQ } from "lib"
 import config from "lib/config"
 import { readdirSync } from "fs"
 import { join } from "path/posix"
+import { RabbitMQ, redis, prisma } from "lib"
 import bearerToken from "express-bearer-token"
+import { createPrismaRedisCache } from "prisma-redis-middleware";
 
 import identity from "./middlewares/identity"
 import errorHandler from "./middlewares/error"
 import validator from "./middlewares/validator"
 
+import { Prisma } from "generated/client"
 import type { Application } from "express"
 import type { Routers } from "./interface/app"
 import type { Request, Response, NextFunction } from "express"
@@ -24,6 +26,7 @@ export default class {
     this.initializeRabbitMQ()
     this.initializeRouters()
     this.initializeErrorHandler()
+    this.initializePrismaRedisCache()
   }
 
   private errorWrapper(
@@ -88,7 +91,28 @@ export default class {
   private initializeRabbitMQ(): void {
     ; (async () => {
       await RabbitMQ.userIdentity()
+      await RabbitMQ.userInfoReply()
     })()
+  }
+
+  private initializePrismaRedisCache(): void {
+    // @ts-ignore
+    const cacheMiddleware: Prisma.Middleware = createPrismaRedisCache({
+      storage: {
+        // @ts-ignore
+        type: "redis",
+        options: {
+          client: redis,
+          // @ts-ignore
+          invalidation: {
+            referencesTTL: 60 * 60 * 5,
+          }
+        }
+      },
+      cacheTime: 60 * 60 * 5, // 5 hours
+    })
+
+    prisma.$use(cacheMiddleware)
   }
 
   public listen(port = config.port): void {

@@ -1,10 +1,9 @@
 import crypto from "crypto"
-import { prisma, redis, HttpError, baseurl } from "lib"
+import { prisma, redis, HttpError, baseurl, userInfo } from "lib"
 
 import type { Request, Response } from "express"
 
 export default async (req: Request, res: Response) => {
-  // check album esists
   const album = await prisma.album.findFirst({
     where: {
       id: +(req.params.albumId as unknown as string),
@@ -26,8 +25,9 @@ export default async (req: Request, res: Response) => {
         select: {
           id: true,
           image: true,
-          description: true,
+          userId: true,
           createdAt: true,
+          description: true,
         },
       },
     },
@@ -48,8 +48,22 @@ export default async (req: Request, res: Response) => {
     })
   )
 
+  const contributorIds = new Set(stories.map((story) => story.userId))
+  const contributors = await Promise.all(
+    [...contributorIds].map(async (id) => {
+      const user = await userInfo(id)
+      return {
+        id: user.id,
+        name: user.name,
+        picture: user.picture,
+      }
+    })
+  )
+
+
   res.json({
     ...album,
+    contributors,
     Story: stories,
   })
 }

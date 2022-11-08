@@ -35,6 +35,7 @@ model Category {
 
 model Story {
   id          Int      @id @default(autoincrement())
+  userId      Int
   description String?
   image       String
   createdAt   DateTime @default(now())

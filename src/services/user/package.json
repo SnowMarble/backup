@@ -20,6 +20,7 @@
     "joi": "^17.6.4",
     "jsonwebtoken": "^8.5.1",
     "prisma": "^4.5.0",
+    "prisma-redis-middleware": "^4.2.1",
     "tsconfig-paths": "^4.1.0"
   },
   "devDependencies": {

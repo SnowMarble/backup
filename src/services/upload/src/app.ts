@@ -5,8 +5,8 @@ import config from "lib/config"
 import { readdirSync } from "fs"
 import { join } from "path/posix"
 import { randomBytes } from "crypto"
-import { RabbitMQ, HttpError } from "lib"
 import bearerToken from "express-bearer-token"
+import { RabbitMQ, HttpError } from "lib"
 
 import { User } from 'interface/user'
 import errorHandler from "./middlewares/error"

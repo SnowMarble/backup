@@ -115,6 +115,7 @@ exports.Prisma.SortOrder = makeEnum({
 
 exports.Prisma.StoryScalarFieldEnum = makeEnum({
   id: 'id',
+  userId: 'userId',
   description: 'description',
   image: 'image',
   createdAt: 'createdAt',

@@ -46,6 +46,7 @@ export type Category = {
  */
 export type Story = {
   id: number
+  userId: number
   description: string | null
   image: string
   createdAt: Date
@@ -2967,18 +2968,21 @@ export namespace Prisma {
 
   export type StoryAvgAggregateOutputType = {
     id: number | null
+    userId: number | null
     familyId: number | null
     AlbumId: number | null
   }
 
   export type StorySumAggregateOutputType = {
     id: number | null
+    userId: number | null
     familyId: number | null
     AlbumId: number | null
   }
 
   export type StoryMinAggregateOutputType = {
     id: number | null
+    userId: number | null
     description: string | null
     image: string | null
     createdAt: Date | null
@@ -2990,6 +2994,7 @@ export namespace Prisma {
 
   export type StoryMaxAggregateOutputType = {
     id: number | null
+    userId: number | null
     description: string | null
     image: string | null
     createdAt: Date | null
@@ -3001,6 +3006,7 @@ export namespace Prisma {
 
   export type StoryCountAggregateOutputType = {
     id: number
+    userId: number
     description: number
     image: number
     createdAt: number
@@ -3014,18 +3020,21 @@ export namespace Prisma {
 
   export type StoryAvgAggregateInputType = {
     id?: true
+    userId?: true
     familyId?: true
     AlbumId?: true
   }
 
   export type StorySumAggregateInputType = {
     id?: true
+    userId?: true
     familyId?: true
     AlbumId?: true
   }
 
   export type StoryMinAggregateInputType = {
     id?: true
+    userId?: true
     description?: true
     image?: true
     createdAt?: true
@@ -3037,6 +3046,7 @@ export namespace Prisma {
 
   export type StoryMaxAggregateInputType = {
     id?: true
+    userId?: true
     description?: true
     image?: true
     createdAt?: true
@@ -3048,6 +3058,7 @@ export namespace Prisma {
 
   export type StoryCountAggregateInputType = {
     id?: true
+    userId?: true
     description?: true
     image?: true
     createdAt?: true
@@ -3152,6 +3163,7 @@ export namespace Prisma {
 
   export type StoryGroupByOutputType = {
     id: number
+    userId: number
     description: string | null
     image: string
     createdAt: Date
@@ -3182,6 +3194,7 @@ export namespace Prisma {
 
   export type StorySelect = {
     id?: boolean
+    userId?: boolean
     description?: boolean
     image?: boolean
     createdAt?: boolean
@@ -3986,6 +3999,7 @@ export namespace Prisma {
 
   export const StoryScalarFieldEnum: {
     id: 'id',
+    userId: 'userId',
     description: 'description',
     image: 'image',
     createdAt: 'createdAt',
@@ -4134,6 +4148,7 @@ export namespace Prisma {
     OR?: Enumerable<StoryWhereInput>
     NOT?: Enumerable<StoryWhereInput>
     id?: IntFilter | number
+    userId?: IntFilter | number
     description?: StringNullableFilter | string | null
     image?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
@@ -4146,6 +4161,7 @@ export namespace Prisma {
 
   export type StoryOrderByWithRelationInput = {
     id?: SortOrder
+    userId?: SortOrder
     description?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
@@ -4162,6 +4178,7 @@ export namespace Prisma {
 
   export type StoryOrderByWithAggregationInput = {
     id?: SortOrder
+    userId?: SortOrder
     description?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
@@ -4181,6 +4198,7 @@ export namespace Prisma {
     OR?: Enumerable<StoryScalarWhereWithAggregatesInput>
     NOT?: Enumerable<StoryScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
+    userId?: IntWithAggregatesFilter | number
     description?: StringNullableWithAggregatesFilter | string | null
     image?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
@@ -4332,6 +4350,7 @@ export namespace Prisma {
   }
 
   export type StoryCreateInput = {
+    userId: number
     description?: string | null
     image: string
     createdAt?: Date | string
@@ -4343,6 +4362,7 @@ export namespace Prisma {
 
   export type StoryUncheckedCreateInput = {
     id?: number
+    userId: number
     description?: string | null
     image: string
     createdAt?: Date | string
@@ -4353,6 +4373,7 @@ export namespace Prisma {
   }
 
   export type StoryUpdateInput = {
+    userId?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4364,6 +4385,7 @@ export namespace Prisma {
 
   export type StoryUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4375,6 +4397,7 @@ export namespace Prisma {
 
   export type StoryCreateManyInput = {
     id?: number
+    userId: number
     description?: string | null
     image: string
     createdAt?: Date | string
@@ -4385,6 +4408,7 @@ export namespace Prisma {
   }
 
   export type StoryUpdateManyMutationInput = {
+    userId?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4395,6 +4419,7 @@ export namespace Prisma {
 
   export type StoryUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4632,6 +4657,7 @@ export namespace Prisma {
 
   export type StoryCountOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     description?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
@@ -4643,12 +4669,14 @@ export namespace Prisma {
 
   export type StoryAvgOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     familyId?: SortOrder
     AlbumId?: SortOrder
   }
 
   export type StoryMaxOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     description?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
@@ -4660,6 +4688,7 @@ export namespace Prisma {
 
   export type StoryMinOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     description?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
@@ -4671,6 +4700,7 @@ export namespace Prisma {
 
   export type StorySumOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     familyId?: SortOrder
     AlbumId?: SortOrder
   }
@@ -4964,6 +4994,7 @@ export namespace Prisma {
   }
 
   export type StoryCreateWithoutAlbumInput = {
+    userId: number
     description?: string | null
     image: string
     createdAt?: Date | string
@@ -4974,6 +5005,7 @@ export namespace Prisma {
 
   export type StoryUncheckedCreateWithoutAlbumInput = {
     id?: number
+    userId: number
     description?: string | null
     image: string
     createdAt?: Date | string
@@ -5033,6 +5065,7 @@ export namespace Prisma {
     OR?: Enumerable<StoryScalarWhereInput>
     NOT?: Enumerable<StoryScalarWhereInput>
     id?: IntFilter | number
+    userId?: IntFilter | number
     description?: StringNullableFilter | string | null
     image?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
@@ -5164,6 +5197,7 @@ export namespace Prisma {
 
   export type StoryCreateManyAlbumInput = {
     id?: number
+    userId: number
     description?: string | null
     image: string
     createdAt?: Date | string
@@ -5173,6 +5207,7 @@ export namespace Prisma {
   }
 
   export type StoryUpdateWithoutAlbumInput = {
+    userId?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5183,6 +5218,7 @@ export namespace Prisma {
 
   export type StoryUncheckedUpdateWithoutAlbumInput = {
     id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5193,6 +5229,7 @@ export namespace Prisma {
 
   export type StoryUncheckedUpdateManyWithoutStoryInput = {
     id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

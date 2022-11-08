@@ -17,6 +17,7 @@ export default async (req: CreateStory, res: Response) => {
 
   const story = await prisma.story.create({
     data: {
+      userId: req.user.id,
       image: req.body.image,
       AlbumId: req.body.albumId,
       description: req.body.description,
