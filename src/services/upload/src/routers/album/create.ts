@@ -1,4 +1,4 @@
-import { prisma, HttpError } from "lib"
+import { prisma, HttpError, thumbnail } from "lib"
 
 import type { Response } from "express"
 import type { CreateAlbum } from "interface/body"
@@ -21,6 +21,7 @@ export default async (req: CreateAlbum, res: Response) => {
       description: req.body.description,
       familyId: req.user.familyid as number,
       CategoryId: req.body.categoryId,
+      thumbnail: req.body.thumbnail || `_d-${thumbnail.randomIndex()}`,
     },
     select: {
       id: true,

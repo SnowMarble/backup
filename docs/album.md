@@ -59,12 +59,13 @@ post /album
 
 #### Request body
 
-| name        | type   | required | description |
-| ----------- | ------ | -------- | ----------- |
-| name        | string | Y        | 앨범 이름   |
-| description | string | N        | 앨범 설명   |
-| categoryId  | number | N        | 카테고리 id |
-| evnetDate   | string | N        | 이벤트 날짜 |
+| name        | type   | required | description                                   |
+| ----------- | ------ | -------- | --------------------------------------------- |
+| name        | string | Y        | 앨범 이름                                     |
+| description | string | N        | 앨범 설명                                     |
+| categoryId  | number | N        | 카테고리 id                                   |
+| evnetDate   | string | N        | 이벤트 날짜                                   |
+| thumbnail   | string | N        | 썸네일 이미지 키. 없으면 기본 이미지로 저장됨 |
 
 #### Response
 

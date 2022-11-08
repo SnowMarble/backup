@@ -12,6 +12,7 @@ export type CreateAlbum = Body<{
   eventDate: string
   categoryId: number
   description: string
+  thumbnail?: string
 }>
 
 

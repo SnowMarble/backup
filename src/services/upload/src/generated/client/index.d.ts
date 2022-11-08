@@ -21,6 +21,7 @@ export type Album = {
   name: string
   description: string | null
   evnetDate: Date
+  thumbnail: string
   createdAt: Date
   updatedAt: Date
   lastViewed: Date
@@ -1007,6 +1008,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     evnetDate: Date | null
+    thumbnail: string | null
     createdAt: Date | null
     updatedAt: Date | null
     lastViewed: Date | null
@@ -1019,6 +1021,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     evnetDate: Date | null
+    thumbnail: string | null
     createdAt: Date | null
     updatedAt: Date | null
     lastViewed: Date | null
@@ -1031,6 +1034,7 @@ export namespace Prisma {
     name: number
     description: number
     evnetDate: number
+    thumbnail: number
     createdAt: number
     updatedAt: number
     lastViewed: number
@@ -1057,6 +1061,7 @@ export namespace Prisma {
     name?: true
     description?: true
     evnetDate?: true
+    thumbnail?: true
     createdAt?: true
     updatedAt?: true
     lastViewed?: true
@@ -1069,6 +1074,7 @@ export namespace Prisma {
     name?: true
     description?: true
     evnetDate?: true
+    thumbnail?: true
     createdAt?: true
     updatedAt?: true
     lastViewed?: true
@@ -1081,6 +1087,7 @@ export namespace Prisma {
     name?: true
     description?: true
     evnetDate?: true
+    thumbnail?: true
     createdAt?: true
     updatedAt?: true
     lastViewed?: true
@@ -1186,6 +1193,7 @@ export namespace Prisma {
     name: string
     description: string | null
     evnetDate: Date
+    thumbnail: string
     createdAt: Date
     updatedAt: Date
     lastViewed: Date
@@ -1217,6 +1225,7 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     evnetDate?: boolean
+    thumbnail?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     lastViewed?: boolean
@@ -3968,6 +3977,7 @@ export namespace Prisma {
     name: 'name',
     description: 'description',
     evnetDate: 'evnetDate',
+    thumbnail: 'thumbnail',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     lastViewed: 'lastViewed',
@@ -4035,6 +4045,7 @@ export namespace Prisma {
     name?: StringFilter | string
     description?: StringNullableFilter | string | null
     evnetDate?: DateTimeFilter | Date | string
+    thumbnail?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     lastViewed?: DateTimeFilter | Date | string
@@ -4049,6 +4060,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     evnetDate?: SortOrder
+    thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastViewed?: SortOrder
@@ -4067,6 +4079,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     evnetDate?: SortOrder
+    thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastViewed?: SortOrder
@@ -4087,6 +4100,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter | string
     description?: StringNullableWithAggregatesFilter | string | null
     evnetDate?: DateTimeWithAggregatesFilter | Date | string
+    thumbnail?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
     lastViewed?: DateTimeWithAggregatesFilter | Date | string
@@ -4212,6 +4226,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     evnetDate: Date | string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     lastViewed?: Date | string
@@ -4225,6 +4240,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     evnetDate: Date | string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     lastViewed?: Date | string
@@ -4237,6 +4253,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4250,6 +4267,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4263,6 +4281,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     evnetDate: Date | string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     lastViewed?: Date | string
@@ -4274,6 +4293,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4285,6 +4305,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4499,6 +4520,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     evnetDate?: SortOrder
+    thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastViewed?: SortOrder
@@ -4517,6 +4539,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     evnetDate?: SortOrder
+    thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastViewed?: SortOrder
@@ -4529,6 +4552,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     evnetDate?: SortOrder
+    thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastViewed?: SortOrder
@@ -5079,6 +5103,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     evnetDate: Date | string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     lastViewed?: Date | string
@@ -5091,6 +5116,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     evnetDate: Date | string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     lastViewed?: Date | string
@@ -5132,6 +5158,7 @@ export namespace Prisma {
     name?: StringFilter | string
     description?: StringNullableFilter | string | null
     evnetDate?: DateTimeFilter | Date | string
+    thumbnail?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     lastViewed?: DateTimeFilter | Date | string
@@ -5143,6 +5170,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     evnetDate: Date | string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     lastViewed?: Date | string
@@ -5155,6 +5183,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     evnetDate: Date | string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     lastViewed?: Date | string
@@ -5176,6 +5205,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5188,6 +5218,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5243,6 +5274,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     evnetDate: Date | string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     lastViewed?: Date | string
@@ -5253,6 +5285,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5265,6 +5298,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5277,6 +5311,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string

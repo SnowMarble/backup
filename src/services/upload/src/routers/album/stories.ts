@@ -1,5 +1,11 @@
-import crypto from "crypto"
-import { prisma, redis, HttpError, baseurl, userInfo } from "lib"
+import {
+  prisma,
+  HttpError,
+  baseurl,
+  userInfo,
+  imageTempCode,
+  thumbnail,
+} from "lib"
 
 import type { Request, Response } from "express"
 
@@ -20,6 +26,7 @@ export default async (req: Request, res: Response) => {
       },
       name: true,
       evnetDate: true,
+      thumbnail: true,
       description: true,
       Story: {
         select: {
@@ -39,8 +46,7 @@ export default async (req: Request, res: Response) => {
 
   const stories = await Promise.all(
     album.Story.map(async (story) => {
-      const tempAuthCode = crypto.randomBytes(16).toString("hex")
-      await redis.set(tempAuthCode, story.image, "EX", 60 * 60)
+      const tempAuthCode = await imageTempCode(story.image)
       return {
         ...story,
         image: `${baseurl}/upload/${story.image}?&f=${req.user.familyid}&a=${tempAuthCode}`,
@@ -60,9 +66,12 @@ export default async (req: Request, res: Response) => {
     })
   )
 
-
   res.json({
     ...album,
+    thumbnail: album.thumbnail.startsWith("_d-")
+      ? thumbnail.defaultImages[+album.thumbnail.substring(3)]
+      : (album.thumbnail = `${baseurl}/upload/${album.thumbnail}?&f=${req.user.familyid
+        }&a=${await imageTempCode(album.thumbnail)}`),
     contributors,
     Story: stories,
   })

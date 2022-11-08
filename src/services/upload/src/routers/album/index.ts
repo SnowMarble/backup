@@ -32,6 +32,7 @@ export default checkRouter({
       validation: {
         type: "body",
         body: {
+          thumbnail: Joi.string(),
           description: Joi.string(),
           name: Joi.string().required(),
           eventDate: Joi.date().required(),
