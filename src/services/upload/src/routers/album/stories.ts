@@ -5,6 +5,7 @@ import {
   userInfo,
   imageTempCode,
   thumbnail,
+  updateAlbumView,
 } from "lib"
 
 import type { Request, Response } from "express"
@@ -65,6 +66,8 @@ export default async (req: Request, res: Response) => {
       }
     })
   )
+
+  await updateAlbumView(album.id)
 
   res.json({
     ...album,

@@ -1,4 +1,4 @@
-import { prisma, HttpError } from 'lib'
+import { prisma, HttpError, updateAlbumView } from 'lib'
 
 import type { Response } from 'express';
 import type { CreateStory } from 'interface/body';
@@ -30,6 +30,8 @@ export default async (req: CreateStory, res: Response) => {
       createdAt: true
     }
   })
+
+  await updateAlbumView(req.body.albumId)
 
   res.json(story)
 }
