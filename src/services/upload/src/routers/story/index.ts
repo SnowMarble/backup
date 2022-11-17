@@ -1,6 +1,7 @@
 import Joi from "joi"
 import { checkRouter } from "lib"
 
+import today from "./today"
 import create from "./create"
 
 export default checkRouter({
@@ -20,5 +21,11 @@ export default checkRouter({
         },
       },
     },
+    {
+      path: "/today",
+      method: "get",
+      needAuth: true,
+      handler: today,
+    }
   ],
 })

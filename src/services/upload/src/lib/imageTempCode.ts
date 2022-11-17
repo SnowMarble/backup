@@ -1,8 +1,11 @@
-import { redis } from "lib"
+import { redis, baseurl } from "lib"
 import crypto from "crypto"
 
-export const imageTempCode = async (imageId: string): Promise<string> => {
+export const imageTempCode = async (
+  imageId: string,
+  familyId: number
+): Promise<string> => {
   const tempAuthCode = crypto.randomBytes(16).toString("hex")
   await redis.set(tempAuthCode, imageId, "EX", 60 * 60)
-  return tempAuthCode
+  return `${baseurl}/upload/${imageId}?&f=${familyId}&a=${tempAuthCode}`
 }

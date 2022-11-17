@@ -47,10 +47,9 @@ export default async (req: Request, res: Response) => {
 
   const stories = await Promise.all(
     album.Story.map(async (story) => {
-      const tempAuthCode = await imageTempCode(story.image)
       return {
         ...story,
-        image: `${baseurl}/upload/${story.image}?&f=${req.user.familyid}&a=${tempAuthCode}`,
+        image: await imageTempCode(story.image, req.user.familyid as number),
       }
     })
   )
@@ -73,8 +72,7 @@ export default async (req: Request, res: Response) => {
     ...album,
     thumbnail: album.thumbnail.startsWith("_d-")
       ? thumbnail.defaultImages[+album.thumbnail.substring(3)]
-      : (album.thumbnail = `${baseurl}/upload/${album.thumbnail}?&f=${req.user.familyid
-        }&a=${await imageTempCode(album.thumbnail)}`),
+      : await imageTempCode(album.thumbnail, req.user.familyid as number),
     contributors,
     Story: stories,
   })

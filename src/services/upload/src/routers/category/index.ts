@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { checkRouter } from 'lib'
+import { checkRouter, prisma } from 'lib'
 
 import get from './get'
 import deleteCategory from './delete'
@@ -22,6 +22,14 @@ export default checkRouter({
       validation: {
         type: "body",
         body: { id: Joi.number().required() }
+      }
+    },
+    {
+      path: '/all',
+      method: 'get',
+      needAuth: true,
+      handler: async (req, res) => {
+        res.json(await prisma.category.findMany())
       }
     }
   ]

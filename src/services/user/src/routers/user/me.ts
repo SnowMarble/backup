@@ -10,6 +10,7 @@ export default async (req: Request, res: Response) => {
       picture: true,
       family: {
         select: {
+          id: true,
           name: true
         }
       }

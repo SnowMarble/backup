@@ -1,4 +1,4 @@
-import { prisma, thumbnail, baseurl, imageTempCode } from "lib"
+import { prisma, thumbnail, imageTempCode } from "lib"
 
 import type { Request, Response } from "express"
 
@@ -28,8 +28,7 @@ export default async (req: Request, res: Response) => {
         ...album,
         thumbnail: album.thumbnail.startsWith("_d-")
           ? thumbnail.defaultImages[+album.thumbnail.substring(3)]
-          : (album.thumbnail = `${baseurl}/upload/${album.thumbnail}?&f=${req.user.familyid
-            }&a=${await imageTempCode(album.thumbnail)}`),
+          : await imageTempCode(album.thumbnail, req.user.familyid as number),
       }))
     )
   )

@@ -1,4 +1,4 @@
-import { RabbitMQ, prisma } from "lib"
+import { RabbitMQ, prisma, HttpError } from "lib"
 
 import type { Response } from "express"
 import type { OnboardingFamilyBody } from "interface/body"

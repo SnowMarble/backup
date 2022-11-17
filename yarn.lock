@@ -4268,7 +4268,7 @@ eslint@latest:
     express-bearer-token: ^2.4.0
     google-auth-library: ^8.6.0
     helmet: ^6.0.0
-    ioredis: ^5.2.4
+    ioredis: 5.2.3
     joi: ^17.6.4
     jsonwebtoken: ^8.5.1
     prisma: ^4.5.0

@@ -4,7 +4,7 @@ import express from "express"
 import config from "lib/config"
 import { readdirSync } from "fs"
 import { join } from "path/posix"
-import { RabbitMQ, redis, prisma } from "lib"
+import { RabbitMQ, prisma, redis } from "lib"
 import bearerToken from "express-bearer-token"
 import { createPrismaRedisCache } from "prisma-redis-middleware";
 
@@ -96,23 +96,28 @@ export default class {
   }
 
   private initializePrismaRedisCache(): void {
-    // @ts-ignore
-    const cacheMiddleware: Prisma.Middleware = createPrismaRedisCache({
-      storage: {
-        // @ts-ignore
-        type: "redis",
-        options: {
-          client: redis,
-          // @ts-ignore
-          invalidation: {
-            referencesTTL: 60 * 60 * 5,
-          }
-        }
-      },
-      cacheTime: 60 * 60 * 5, // 5 hours
-    })
+    // const cacheMiddleware: Prisma.Middleware = createPrismaRedisCache({
+    //   storage: {
+    //     type: "redis",
+    //     options: {
+    //       client: redis,
+    //       invalidation: { referencesTTL: 60 * 60 * 5 }
+    //     }
+    //   },
+    //   cacheTime: 60 * 60 * 5, // 5 hours
 
-    prisma.$use(cacheMiddleware)
+    //   onHit: (key: string): void => {
+    //     console.log("Cache hit 🪄  " + key);
+    //   },
+    //   onMiss: (key: string): void => {
+    //     console.log("Cache miss 📎 " + key);
+    //   },
+    //   onError: (key: string): void => {
+    //     console.log("Cache error! 🛑  " + key);
+    //   },
+    // })
+
+    // prisma.$use(cacheMiddleware)
   }
 
   public listen(port = config.port): void {
