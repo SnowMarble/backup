@@ -20,14 +20,14 @@ export type Album = {
   id: number
   name: string
   description: string | null
-  evnetDate: Date
+  evnetDate: Date | null
   thumbnail: string
   createdAt: Date
   updatedAt: Date
   revealsAt: Date | null
   lastViewed: Date
   familyId: number
-  CategoryId: number
+  CategoryId: number | null
 }
 
 /**
@@ -1199,14 +1199,14 @@ export namespace Prisma {
     id: number
     name: string
     description: string | null
-    evnetDate: Date
+    evnetDate: Date | null
     thumbnail: string
     createdAt: Date
     updatedAt: Date
     revealsAt: Date | null
     lastViewed: Date
     familyId: number
-    CategoryId: number
+    CategoryId: number | null
     _count: AlbumCountAggregateOutputType | null
     _avg: AlbumAvgAggregateOutputType | null
     _sum: AlbumSumAggregateOutputType | null
@@ -1262,14 +1262,14 @@ export namespace Prisma {
     ?'include' extends U
     ? Album  & {
     [P in TrueKeys<S['include']>]:
-        P extends 'Category' ? CategoryGetPayload<Exclude<S['include'], undefined | null>[P]> :
+        P extends 'Category' ? CategoryGetPayload<Exclude<S['include'], undefined | null>[P]> | null :
         P extends 'Story' ? Array < StoryGetPayload<Exclude<S['include'], undefined | null>[P]>>  :
         P extends '_count' ? AlbumCountOutputTypeGetPayload<Exclude<S['include'], undefined | null>[P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-        P extends 'Category' ? CategoryGetPayload<Exclude<S['select'], undefined | null>[P]> :
+        P extends 'Category' ? CategoryGetPayload<Exclude<S['select'], undefined | null>[P]> | null :
         P extends 'Story' ? Array < StoryGetPayload<Exclude<S['select'], undefined | null>[P]>>  :
         P extends '_count' ? AlbumCountOutputTypeGetPayload<Exclude<S['select'], undefined | null>[P]> :  P extends keyof Album ? Album[P] : never
   } 
@@ -4054,15 +4054,15 @@ export namespace Prisma {
     id?: IntFilter | number
     name?: StringFilter | string
     description?: StringNullableFilter | string | null
-    evnetDate?: DateTimeFilter | Date | string
+    evnetDate?: DateTimeNullableFilter | Date | string | null
     thumbnail?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     revealsAt?: DateTimeNullableFilter | Date | string | null
     lastViewed?: DateTimeFilter | Date | string
     familyId?: IntFilter | number
-    CategoryId?: IntFilter | number
-    Category?: XOR<CategoryRelationFilter, CategoryWhereInput>
+    CategoryId?: IntNullableFilter | number | null
+    Category?: XOR<CategoryRelationFilter, CategoryWhereInput> | null
     Story?: StoryListRelationFilter
   }
 
@@ -4112,14 +4112,14 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter | number
     name?: StringWithAggregatesFilter | string
     description?: StringNullableWithAggregatesFilter | string | null
-    evnetDate?: DateTimeWithAggregatesFilter | Date | string
+    evnetDate?: DateTimeNullableWithAggregatesFilter | Date | string | null
     thumbnail?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
     revealsAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
     lastViewed?: DateTimeWithAggregatesFilter | Date | string
     familyId?: IntWithAggregatesFilter | number
-    CategoryId?: IntWithAggregatesFilter | number
+    CategoryId?: IntNullableWithAggregatesFilter | number | null
   }
 
   export type CategoryWhereInput = {
@@ -4239,14 +4239,14 @@ export namespace Prisma {
   export type AlbumCreateInput = {
     name: string
     description?: string | null
-    evnetDate: Date | string
+    evnetDate?: Date | string | null
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     revealsAt?: Date | string | null
     lastViewed?: Date | string
     familyId: number
-    Category: CategoryCreateNestedOneWithoutAlbumsInput
+    Category?: CategoryCreateNestedOneWithoutAlbumsInput
     Story?: StoryCreateNestedManyWithoutAlbumInput
   }
 
@@ -4254,28 +4254,28 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
-    evnetDate: Date | string
+    evnetDate?: Date | string | null
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     revealsAt?: Date | string | null
     lastViewed?: Date | string
     familyId: number
-    CategoryId: number
+    CategoryId?: number | null
     Story?: StoryUncheckedCreateNestedManyWithoutAlbumInput
   }
 
   export type AlbumUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    evnetDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     revealsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
-    Category?: CategoryUpdateOneRequiredWithoutAlbumsNestedInput
+    Category?: CategoryUpdateOneWithoutAlbumsNestedInput
     Story?: StoryUpdateManyWithoutAlbumNestedInput
   }
 
@@ -4283,14 +4283,14 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    evnetDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     revealsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
-    CategoryId?: IntFieldUpdateOperationsInput | number
+    CategoryId?: NullableIntFieldUpdateOperationsInput | number | null
     Story?: StoryUncheckedUpdateManyWithoutAlbumNestedInput
   }
 
@@ -4298,20 +4298,20 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
-    evnetDate: Date | string
+    evnetDate?: Date | string | null
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     revealsAt?: Date | string | null
     lastViewed?: Date | string
     familyId: number
-    CategoryId: number
+    CategoryId?: number | null
   }
 
   export type AlbumUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    evnetDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4324,14 +4324,14 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    evnetDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     revealsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
-    CategoryId?: IntFieldUpdateOperationsInput | number
+    CategoryId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type CategoryCreateInput = {
@@ -4510,17 +4510,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter | string | null
   }
 
-  export type DateTimeFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeFilter | Date | string
-  }
-
   export type DateTimeNullableFilter = {
     equals?: Date | string | null
     in?: Enumerable<Date> | Enumerable<string> | null
@@ -4532,9 +4521,31 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter | Date | string | null
   }
 
+  export type DateTimeFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeFilter | Date | string
+  }
+
+  export type IntNullableFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntNullableFilter | number | null
+  }
+
   export type CategoryRelationFilter = {
-    is?: CategoryWhereInput
-    isNot?: CategoryWhereInput
+    is?: CategoryWhereInput | null
+    isNot?: CategoryWhereInput | null
   }
 
   export type StoryListRelationFilter = {
@@ -4651,6 +4662,20 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter
   }
 
+  export type DateTimeNullableWithAggregatesFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedDateTimeNullableFilter
+    _max?: NestedDateTimeNullableFilter
+  }
+
   export type DateTimeWithAggregatesFilter = {
     equals?: Date | string
     in?: Enumerable<Date> | Enumerable<string>
@@ -4665,18 +4690,20 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
-  export type DateTimeNullableWithAggregatesFilter = {
-    equals?: Date | string | null
-    in?: Enumerable<Date> | Enumerable<string> | null
-    notIn?: Enumerable<Date> | Enumerable<string> | null
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
+  export type IntNullableWithAggregatesFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntNullableWithAggregatesFilter | number | null
     _count?: NestedIntNullableFilter
-    _min?: NestedDateTimeNullableFilter
-    _max?: NestedDateTimeNullableFilter
+    _avg?: NestedFloatNullableFilter
+    _sum?: NestedIntNullableFilter
+    _min?: NestedIntNullableFilter
+    _max?: NestedIntNullableFilter
   }
 
   export type AlbumListRelationFilter = {
@@ -4806,12 +4833,12 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -4822,10 +4849,12 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type CategoryUpdateOneRequiredWithoutAlbumsNestedInput = {
+  export type CategoryUpdateOneWithoutAlbumsNestedInput = {
     create?: XOR<CategoryCreateWithoutAlbumsInput, CategoryUncheckedCreateWithoutAlbumsInput>
     connectOrCreate?: CategoryCreateOrConnectWithoutAlbumsInput
     upsert?: CategoryUpsertWithoutAlbumsInput
+    disconnect?: boolean
+    delete?: boolean
     connect?: CategoryWhereUniqueInput
     update?: XOR<CategoryUpdateWithoutAlbumsInput, CategoryUncheckedUpdateWithoutAlbumsInput>
   }
@@ -4842,6 +4871,14 @@ export namespace Prisma {
     update?: Enumerable<StoryUpdateWithWhereUniqueWithoutAlbumInput>
     updateMany?: Enumerable<StoryUpdateManyWithWhereWithoutAlbumInput>
     deleteMany?: Enumerable<StoryScalarWhereInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type StoryUncheckedUpdateManyWithoutAlbumNestedInput = {
@@ -4953,6 +4990,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter | string | null
   }
 
+  export type NestedDateTimeNullableFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableFilter | Date | string | null
+  }
+
   export type NestedDateTimeFilter = {
     equals?: Date | string
     in?: Enumerable<Date> | Enumerable<string>
@@ -4964,15 +5012,15 @@ export namespace Prisma {
     not?: NestedDateTimeFilter | Date | string
   }
 
-  export type NestedDateTimeNullableFilter = {
-    equals?: Date | string | null
-    in?: Enumerable<Date> | Enumerable<string> | null
-    notIn?: Enumerable<Date> | Enumerable<string> | null
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeNullableFilter | Date | string | null
+  export type NestedIntNullableFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntNullableFilter | number | null
   }
 
   export type NestedIntWithAggregatesFilter = {
@@ -5036,15 +5084,18 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter
   }
 
-  export type NestedIntNullableFilter = {
-    equals?: number | null
-    in?: Enumerable<number> | null
-    notIn?: Enumerable<number> | null
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntNullableFilter | number | null
+  export type NestedDateTimeNullableWithAggregatesFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedDateTimeNullableFilter
+    _max?: NestedDateTimeNullableFilter
   }
 
   export type NestedDateTimeWithAggregatesFilter = {
@@ -5061,18 +5112,31 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
-  export type NestedDateTimeNullableWithAggregatesFilter = {
-    equals?: Date | string | null
-    in?: Enumerable<Date> | Enumerable<string> | null
-    notIn?: Enumerable<Date> | Enumerable<string> | null
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
+  export type NestedIntNullableWithAggregatesFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntNullableWithAggregatesFilter | number | null
     _count?: NestedIntNullableFilter
-    _min?: NestedDateTimeNullableFilter
-    _max?: NestedDateTimeNullableFilter
+    _avg?: NestedFloatNullableFilter
+    _sum?: NestedIntNullableFilter
+    _min?: NestedIntNullableFilter
+    _max?: NestedIntNullableFilter
+  }
+
+  export type NestedFloatNullableFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatNullableFilter | number | null
   }
 
   export type CategoryCreateWithoutAlbumsInput = {
@@ -5180,7 +5244,7 @@ export namespace Prisma {
   export type AlbumCreateWithoutCategoryInput = {
     name: string
     description?: string | null
-    evnetDate: Date | string
+    evnetDate?: Date | string | null
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5194,7 +5258,7 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
-    evnetDate: Date | string
+    evnetDate?: Date | string | null
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5237,41 +5301,41 @@ export namespace Prisma {
     id?: IntFilter | number
     name?: StringFilter | string
     description?: StringNullableFilter | string | null
-    evnetDate?: DateTimeFilter | Date | string
+    evnetDate?: DateTimeNullableFilter | Date | string | null
     thumbnail?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     revealsAt?: DateTimeNullableFilter | Date | string | null
     lastViewed?: DateTimeFilter | Date | string
     familyId?: IntFilter | number
-    CategoryId?: IntFilter | number
+    CategoryId?: IntNullableFilter | number | null
   }
 
   export type AlbumCreateWithoutStoryInput = {
     name: string
     description?: string | null
-    evnetDate: Date | string
+    evnetDate?: Date | string | null
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     revealsAt?: Date | string | null
     lastViewed?: Date | string
     familyId: number
-    Category: CategoryCreateNestedOneWithoutAlbumsInput
+    Category?: CategoryCreateNestedOneWithoutAlbumsInput
   }
 
   export type AlbumUncheckedCreateWithoutStoryInput = {
     id?: number
     name: string
     description?: string | null
-    evnetDate: Date | string
+    evnetDate?: Date | string | null
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     revealsAt?: Date | string | null
     lastViewed?: Date | string
     familyId: number
-    CategoryId: number
+    CategoryId?: number | null
   }
 
   export type AlbumCreateOrConnectWithoutStoryInput = {
@@ -5287,28 +5351,28 @@ export namespace Prisma {
   export type AlbumUpdateWithoutStoryInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    evnetDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     revealsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
-    Category?: CategoryUpdateOneRequiredWithoutAlbumsNestedInput
+    Category?: CategoryUpdateOneWithoutAlbumsNestedInput
   }
 
   export type AlbumUncheckedUpdateWithoutStoryInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    evnetDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     revealsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
-    CategoryId?: IntFieldUpdateOperationsInput | number
+    CategoryId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StoryCreateManyAlbumInput = {
@@ -5358,7 +5422,7 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
-    evnetDate: Date | string
+    evnetDate?: Date | string | null
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5370,7 +5434,7 @@ export namespace Prisma {
   export type AlbumUpdateWithoutCategoryInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    evnetDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5384,7 +5448,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    evnetDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5398,7 +5462,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    evnetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    evnetDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -10,6 +10,7 @@ export default async (req: CreateAlbum, res: Response) => {
   })
 
   if (
+    !req.body.revealsAt &&
     !familyCategories.find((category) => category.id === req.body.categoryId)
   ) {
     throw new HttpError(400, "Category not found", "ERR_CATEGORY_NOT_FOUND")

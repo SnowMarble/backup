@@ -21,6 +21,7 @@ export default checkRouter({
           sortType: Joi.string()
             .valid("lastViewed", "updatedAt", "name")
             .required(),
+          type: Joi.string().valid("album", "capsule"),
         },
       },
     },
@@ -35,8 +36,8 @@ export default checkRouter({
           thumbnail: Joi.string(),
           description: Joi.string(),
           name: Joi.string().required(),
-          eventDate: Joi.date().required(),
-          categoryId: Joi.number().required(),
+          eventDate: Joi.date().optional(),
+          categoryId: Joi.number().optional(),
           revealsAt: Joi.date().optional(),
         },
       },

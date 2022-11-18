@@ -10,10 +10,11 @@ get /album
 
 #### Request query
 
-| name     | type                            | required | description              |
-| -------- | ------------------------------- | -------- | ------------------------ |
-| sortType | lastViewed \| updatedAt \| name | Y        | 정렬 기준                |
-| sort     | asc \| desc                     | N        | 정렬 방식 (default: asc) |
+| name     | type                            | required | description                |
+| -------- | ------------------------------- | -------- | -------------------------- |
+| sortType | lastViewed \| updatedAt \| name | Y        | 정렬 기준                  |
+| sort     | asc \| desc                     | N        | 정렬 방식 (default: asc)   |
+| type     | album \| capsule                | N        | 앨범 타입 (default: album) |
 
 ### Response
 

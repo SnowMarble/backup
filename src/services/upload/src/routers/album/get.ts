@@ -3,12 +3,13 @@ import { prisma, thumbnail, imageTempCode } from "lib"
 import type { Request, Response } from "express"
 
 export default async (req: Request, res: Response) => {
-  const { sortType, sort = "asc", categoryId } = req.query
+  const { sortType, sort = "asc", categoryId, type = "album" } = req.query
 
   const album = await prisma.album.findMany({
     where: {
       familyId: req.user.familyid as number,
       CategoryId: categoryId ? +categoryId : undefined,
+      revealsAt: type === "capsule" ? { not: null } : null,
     },
     select: {
       id: true,
