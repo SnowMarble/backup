@@ -24,6 +24,7 @@ export type Album = {
   thumbnail: string
   createdAt: Date
   updatedAt: Date
+  revealsAt: Date | null
   lastViewed: Date
   familyId: number
   CategoryId: number
@@ -1011,6 +1012,7 @@ export namespace Prisma {
     thumbnail: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    revealsAt: Date | null
     lastViewed: Date | null
     familyId: number | null
     CategoryId: number | null
@@ -1024,6 +1026,7 @@ export namespace Prisma {
     thumbnail: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    revealsAt: Date | null
     lastViewed: Date | null
     familyId: number | null
     CategoryId: number | null
@@ -1037,6 +1040,7 @@ export namespace Prisma {
     thumbnail: number
     createdAt: number
     updatedAt: number
+    revealsAt: number
     lastViewed: number
     familyId: number
     CategoryId: number
@@ -1064,6 +1068,7 @@ export namespace Prisma {
     thumbnail?: true
     createdAt?: true
     updatedAt?: true
+    revealsAt?: true
     lastViewed?: true
     familyId?: true
     CategoryId?: true
@@ -1077,6 +1082,7 @@ export namespace Prisma {
     thumbnail?: true
     createdAt?: true
     updatedAt?: true
+    revealsAt?: true
     lastViewed?: true
     familyId?: true
     CategoryId?: true
@@ -1090,6 +1096,7 @@ export namespace Prisma {
     thumbnail?: true
     createdAt?: true
     updatedAt?: true
+    revealsAt?: true
     lastViewed?: true
     familyId?: true
     CategoryId?: true
@@ -1196,6 +1203,7 @@ export namespace Prisma {
     thumbnail: string
     createdAt: Date
     updatedAt: Date
+    revealsAt: Date | null
     lastViewed: Date
     familyId: number
     CategoryId: number
@@ -1228,6 +1236,7 @@ export namespace Prisma {
     thumbnail?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    revealsAt?: boolean
     lastViewed?: boolean
     familyId?: boolean
     CategoryId?: boolean
@@ -3980,6 +3989,7 @@ export namespace Prisma {
     thumbnail: 'thumbnail',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
+    revealsAt: 'revealsAt',
     lastViewed: 'lastViewed',
     familyId: 'familyId',
     CategoryId: 'CategoryId'
@@ -4048,6 +4058,7 @@ export namespace Prisma {
     thumbnail?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
+    revealsAt?: DateTimeNullableFilter | Date | string | null
     lastViewed?: DateTimeFilter | Date | string
     familyId?: IntFilter | number
     CategoryId?: IntFilter | number
@@ -4063,6 +4074,7 @@ export namespace Prisma {
     thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    revealsAt?: SortOrder
     lastViewed?: SortOrder
     familyId?: SortOrder
     CategoryId?: SortOrder
@@ -4082,6 +4094,7 @@ export namespace Prisma {
     thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    revealsAt?: SortOrder
     lastViewed?: SortOrder
     familyId?: SortOrder
     CategoryId?: SortOrder
@@ -4103,6 +4116,7 @@ export namespace Prisma {
     thumbnail?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
+    revealsAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
     lastViewed?: DateTimeWithAggregatesFilter | Date | string
     familyId?: IntWithAggregatesFilter | number
     CategoryId?: IntWithAggregatesFilter | number
@@ -4229,6 +4243,7 @@ export namespace Prisma {
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    revealsAt?: Date | string | null
     lastViewed?: Date | string
     familyId: number
     Category: CategoryCreateNestedOneWithoutAlbumsInput
@@ -4243,6 +4258,7 @@ export namespace Prisma {
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    revealsAt?: Date | string | null
     lastViewed?: Date | string
     familyId: number
     CategoryId: number
@@ -4256,6 +4272,7 @@ export namespace Prisma {
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revealsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
     Category?: CategoryUpdateOneRequiredWithoutAlbumsNestedInput
@@ -4270,6 +4287,7 @@ export namespace Prisma {
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revealsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
     CategoryId?: IntFieldUpdateOperationsInput | number
@@ -4284,6 +4302,7 @@ export namespace Prisma {
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    revealsAt?: Date | string | null
     lastViewed?: Date | string
     familyId: number
     CategoryId: number
@@ -4296,6 +4315,7 @@ export namespace Prisma {
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revealsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
   }
@@ -4308,6 +4328,7 @@ export namespace Prisma {
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revealsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
     CategoryId?: IntFieldUpdateOperationsInput | number
@@ -4500,6 +4521,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter | Date | string
   }
 
+  export type DateTimeNullableFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableFilter | Date | string | null
+  }
+
   export type CategoryRelationFilter = {
     is?: CategoryWhereInput
     isNot?: CategoryWhereInput
@@ -4523,6 +4555,7 @@ export namespace Prisma {
     thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    revealsAt?: SortOrder
     lastViewed?: SortOrder
     familyId?: SortOrder
     CategoryId?: SortOrder
@@ -4542,6 +4575,7 @@ export namespace Prisma {
     thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    revealsAt?: SortOrder
     lastViewed?: SortOrder
     familyId?: SortOrder
     CategoryId?: SortOrder
@@ -4555,6 +4589,7 @@ export namespace Prisma {
     thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    revealsAt?: SortOrder
     lastViewed?: SortOrder
     familyId?: SortOrder
     CategoryId?: SortOrder
@@ -4628,6 +4663,20 @@ export namespace Prisma {
     _count?: NestedIntFilter
     _min?: NestedDateTimeFilter
     _max?: NestedDateTimeFilter
+  }
+
+  export type DateTimeNullableWithAggregatesFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedDateTimeNullableFilter
+    _max?: NestedDateTimeNullableFilter
   }
 
   export type AlbumListRelationFilter = {
@@ -4759,6 +4808,10 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -4911,6 +4964,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter | Date | string
   }
 
+  export type NestedDateTimeNullableFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableFilter | Date | string | null
+  }
+
   export type NestedIntWithAggregatesFilter = {
     equals?: number
     in?: Enumerable<number>
@@ -4995,6 +5059,20 @@ export namespace Prisma {
     _count?: NestedIntFilter
     _min?: NestedDateTimeFilter
     _max?: NestedDateTimeFilter
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedDateTimeNullableFilter
+    _max?: NestedDateTimeNullableFilter
   }
 
   export type CategoryCreateWithoutAlbumsInput = {
@@ -5106,6 +5184,7 @@ export namespace Prisma {
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    revealsAt?: Date | string | null
     lastViewed?: Date | string
     familyId: number
     Story?: StoryCreateNestedManyWithoutAlbumInput
@@ -5119,6 +5198,7 @@ export namespace Prisma {
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    revealsAt?: Date | string | null
     lastViewed?: Date | string
     familyId: number
     Story?: StoryUncheckedCreateNestedManyWithoutAlbumInput
@@ -5161,6 +5241,7 @@ export namespace Prisma {
     thumbnail?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
+    revealsAt?: DateTimeNullableFilter | Date | string | null
     lastViewed?: DateTimeFilter | Date | string
     familyId?: IntFilter | number
     CategoryId?: IntFilter | number
@@ -5173,6 +5254,7 @@ export namespace Prisma {
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    revealsAt?: Date | string | null
     lastViewed?: Date | string
     familyId: number
     Category: CategoryCreateNestedOneWithoutAlbumsInput
@@ -5186,6 +5268,7 @@ export namespace Prisma {
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    revealsAt?: Date | string | null
     lastViewed?: Date | string
     familyId: number
     CategoryId: number
@@ -5208,6 +5291,7 @@ export namespace Prisma {
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revealsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
     Category?: CategoryUpdateOneRequiredWithoutAlbumsNestedInput
@@ -5221,6 +5305,7 @@ export namespace Prisma {
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revealsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
     CategoryId?: IntFieldUpdateOperationsInput | number
@@ -5277,6 +5362,7 @@ export namespace Prisma {
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    revealsAt?: Date | string | null
     lastViewed?: Date | string
     familyId: number
   }
@@ -5288,6 +5374,7 @@ export namespace Prisma {
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revealsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
     Story?: StoryUpdateManyWithoutAlbumNestedInput
@@ -5301,6 +5388,7 @@ export namespace Prisma {
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revealsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
     Story?: StoryUncheckedUpdateManyWithoutAlbumNestedInput
@@ -5314,6 +5402,7 @@ export namespace Prisma {
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revealsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastViewed?: DateTimeFieldUpdateOperationsInput | Date | string
     familyId?: IntFieldUpdateOperationsInput | number
   }

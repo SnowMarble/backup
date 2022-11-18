@@ -1,6 +1,6 @@
 import type { Request } from "express";
 
-type Body<T> = Request<any, any, T>
+export type Body<T, U = any> = Request<any, any, T, U>
 
 export type CreateCategoryType = Body<{
   name: string
@@ -13,6 +13,7 @@ export type CreateAlbum = Body<{
   categoryId: number
   description: string
   thumbnail?: string
+  revealsAt?: string
 }>
 
 

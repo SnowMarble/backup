@@ -11,9 +11,26 @@ import {
 import type { Request, Response } from "express"
 
 export default async (req: Request, res: Response) => {
+  // check album is revealed
+  const revealedAlbum = await prisma.album.findFirst({
+    where: {
+      id: +req.params.id,
+      familyId: req.user.familyid as number,
+    },
+    select: { revealsAt: true }
+  })
+
+  if (revealedAlbum?.revealsAt && revealedAlbum.revealsAt > new Date()) {
+    return res.status(404).json({
+      message: "Album is not found or not revealed",
+      code: "ERR_ALBUM_NOT_FOUND",
+      revealsAt: revealedAlbum.revealsAt
+    })
+  }
+
   const album = await prisma.album.findFirst({
     where: {
-      id: +(req.params.albumId as unknown as string),
+      id: +req.params.id,
       familyId: req.user.familyid as number,
     },
     select: {

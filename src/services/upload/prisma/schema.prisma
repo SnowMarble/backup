@@ -9,17 +9,18 @@ generator client {
 }
 
 model Album {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   name        String
   description String?
   evnetDate   DateTime
   thumbnail   String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt
-  lastViewed  DateTime @default(now())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+  revealsAt   DateTime?
+  lastViewed  DateTime  @default(now())
   familyId    Int
   CategoryId  Int
-  Category    Category @relation(fields: [CategoryId], references: [id], onDelete: Cascade)
+  Category    Category  @relation(fields: [CategoryId], references: [id], onDelete: Cascade)
   Story       Story[]
 }
 

@@ -4,13 +4,14 @@ import type { Response } from "express"
 import type { CreateAlbum } from "interface/body"
 
 export default async (req: CreateAlbum, res: Response) => {
-
   const familyCategories = await prisma.category.findMany({
     where: { familyId: req.user.familyid as number },
-    select: { id: true }
+    select: { id: true },
   })
 
-  if (!familyCategories.find(category => category.id === req.body.categoryId)) {
+  if (
+    !familyCategories.find((category) => category.id === req.body.categoryId)
+  ) {
     throw new HttpError(400, "Category not found", "ERR_CATEGORY_NOT_FOUND")
   }
 
@@ -22,6 +23,7 @@ export default async (req: CreateAlbum, res: Response) => {
       familyId: req.user.familyid as number,
       CategoryId: req.body.categoryId,
       thumbnail: req.body.thumbnail || `_d-${thumbnail.randomIndex()}`,
+      revealsAt: req.body.revealsAt ? new Date(req.body.revealsAt) : null,
     },
     select: {
       id: true,

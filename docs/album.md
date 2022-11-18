@@ -24,6 +24,7 @@ get /album
     "categoryId": string,
     "description": string | null,
     "thumbnail": string | null,
+    "revealsAt": string | null,
 }[]
 
 ```
@@ -67,6 +68,7 @@ post /album
 | categoryId  | number | N        | 카테고리 id                                   |
 | evnetDate   | string | N        | 이벤트 날짜                                   |
 | thumbnail   | string | N        | 썸네일 이미지 키. 없으면 기본 이미지로 저장됨 |
+| revealsAt   | string | N        | 공개 날짜. 캡슐을 생성할 때 전달해 주세요.    |
 
 #### Response
 
@@ -98,6 +100,8 @@ example response
 
 #### Response
 
+#### 200
+
 ```json
 {
   "id": number,
@@ -115,11 +119,23 @@ example response
     "description": string | null,
     "createdAt": string
   }[],
-  "contributors: {
+  "contributors": {
     "id": number,
     "name": string,
     "image": string
   }[]
+}
+```
+
+#### 404
+
+아직 공개되지 않은 앨범(캡슐)
+
+```json
+{
+  "message": "Album is not found or not revealed",
+  "code": "ERR_ALBUM_NOT_FOUND",
+  "revealsAt": string
 }
 ```
 

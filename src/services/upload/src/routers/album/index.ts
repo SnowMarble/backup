@@ -37,11 +37,12 @@ export default checkRouter({
           name: Joi.string().required(),
           eventDate: Joi.date().required(),
           categoryId: Joi.number().required(),
+          revealsAt: Joi.date().optional(),
         },
       },
     },
     {
-      path: "/:albumId",
+      path: "/:id",
       method: "get",
       needAuth: true,
       handler: stories,

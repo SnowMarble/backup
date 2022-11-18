@@ -16,6 +16,7 @@ export default async (req: Request, res: Response) => {
       thumbnail: true,
       CategoryId: true,
       description: true,
+      revealsAt: true,
     },
     orderBy: {
       [sortType as string]: sort as "asc" | "desc",

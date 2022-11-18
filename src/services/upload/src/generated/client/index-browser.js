@@ -96,6 +96,7 @@ exports.Prisma.AlbumScalarFieldEnum = makeEnum({
   thumbnail: 'thumbnail',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  revealsAt: 'revealsAt',
   lastViewed: 'lastViewed',
   familyId: 'familyId',
   CategoryId: 'CategoryId'
